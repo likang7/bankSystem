@@ -6,11 +6,11 @@ import bankSystem.entity.*;
 import bankSystem.persistence.dao.DaoFactory;
 import bankSystem.persistence.dao.iface.*;
 
-public class IndividualService extends BusinessService {
+public class IndividualBusinessService extends BusinessService {
 	private IndividualUserDao userDao;
 	private AccountDao accountDao;
 	
-	public IndividualService(){
+	public IndividualBusinessService(){
 		super();
 		try{
 			userDao = (IndividualUserDao)DaoFactory.getInstance().getDao("IndividualUserDao");
