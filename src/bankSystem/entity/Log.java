@@ -32,6 +32,14 @@ public class Log {
 		this.time = time;
 	}
 
+	@Override
+	public String toString() {
+		return "Log [time=" + time + ", operation=" + operation + ", operator="
+				+ operator + ", cardId=" + cardId + ", accountId=" + accountId
+				+ ", income=" + income + ", expenditure=" + expenditure
+				+ ", balance=" + balance + "]";
+	}
+
 	public String getOperation() {
 		return operation;
 	}

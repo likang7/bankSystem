@@ -2,8 +2,6 @@ package bankSystem.service;
 
 import bankSystem.entity.Log;
 
-enum Status{OK, ERROR};
-
 public class ReturnMsg {
 	private Status status;
 	private String msg;

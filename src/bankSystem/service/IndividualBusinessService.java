@@ -43,7 +43,9 @@ public class IndividualBusinessService extends BusinessService {
 		logDao.insertLog(log);
 		
 		returnMsg.setStatus(Status.OK);
+		returnMsg.setMsg(cardId);
 		returnMsg.setLog(log);
+		
 		return returnMsg;
 	}
 
@@ -58,8 +60,6 @@ public class IndividualBusinessService extends BusinessService {
 			
 			returnMsg = new ReturnMsg();
 			returnMsg.setStatus(Status.OK);
-			
-			
 			
 			Card card = cardDao.getCard(cardId, password);
 			Account account = accountDao.getAccount(card.getAccountId());
@@ -78,9 +78,59 @@ public class IndividualBusinessService extends BusinessService {
 	
 	@Override
 	public ReturnMsg withdraw(String operator, String userId, String cardId,
-			String password, String money) {
+			String password, double money) {
 		// TODO Auto-generated method stub
-		return null;
+		ReturnMsg cardMsg = checkCard(cardId, password, userId);
+		if(cardMsg.getStatus().equals(Status.ERROR))
+			return cardMsg;
+		
+		ReturnMsg returnMsg = new ReturnMsg();
+		Card card = cardDao.getCard(cardId, password, userId);
+		Account account = accountDao.getAccount(card.getAccountId());
+		double balance = account.getBalance();
+		
+		if(balance - money < 0){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This account does not have enough balance.");
+		}
+		else{
+			account.setBalance(balance - money);
+			accountDao.updateAccount(account);
+			
+			Log log = new Log(new Date(), "withdraw", operator, cardId, account.getId(), 0, 
+					money, account.getBalance());
+			returnMsg.setStatus(Status.OK);
+			returnMsg.setLog(log);
+			logDao.insertLog(log);
+		}
+		
+		return returnMsg;
 	}
 
+	public static void main(String args[]){
+		IndividualBusinessService businessService = new IndividualBusinessService();
+		ReturnMsg msg1 = businessService.openAccount("test", "001", "user1", "fixed", 10000, "123456");
+		System.out.println(msg1.getStatus());
+		System.out.println(msg1.getMsg());
+		ReturnMsg msg2 = businessService.openAccount("test", "002", "user2", "fixed", 10000, "123456");
+		System.out.println(msg2.getStatus());
+		System.out.println(msg2.getMsg());
+		
+		ReturnMsg msg3 = businessService.deposit("test", msg1.getMsg(), "123456", 8000);
+		if(msg3.getStatus().equals(Status.OK)){
+			System.out.println(msg3.getLog());
+		}
+		else{
+			System.out.println(msg3.getMsg());
+		}
+		
+		ReturnMsg msg4 = businessService.withdraw("test", "001", msg1.getMsg(), "123456", 10000);
+		if(msg4.getStatus().equals(Status.OK)){
+			System.out.println(msg4.getLog());
+		}
+		else{
+			System.out.println(msg4.getMsg());
+		}
+
+	}
 }

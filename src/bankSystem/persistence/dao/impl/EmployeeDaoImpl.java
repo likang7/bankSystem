@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import bankSystem.entity.Employee;
+import bankSystem.entity.Position;
 import bankSystem.persistence.dao.iface.EmployeeDao;
 
 /**
@@ -15,6 +16,12 @@ import bankSystem.persistence.dao.iface.EmployeeDao;
  */
 public class EmployeeDaoImpl implements EmployeeDao {
 	private static ArrayList<Employee> employees = new ArrayList<Employee>();
+	
+	public EmployeeDaoImpl(){
+		if(getEmployee("root") == null){
+			insertEmployee(new Employee("root", "123456", Position.Administrator, "0001"));
+		}
+	}
 
 	@Override
 	public Employee getEmployee(String username) {

@@ -36,7 +36,6 @@ public abstract class BusinessService {
 	protected ReturnMsg checkCard(String cardId, String password){
 		ReturnMsg returnMsg = new ReturnMsg();
 		try{
-			CardDao cardDao = (CardDao)DaoFactory.getInstance().getDao("CardDao");
 			Card card = cardDao.getCard(cardId, password);
 			if(card == null){
 				returnMsg.setStatus(Status.ERROR);
@@ -56,9 +55,34 @@ public abstract class BusinessService {
 		return returnMsg;
 	}
 	
+	protected ReturnMsg checkCard(String cardId, String password, String userId){
+		ReturnMsg returnMsg = new ReturnMsg();
+		try{
+			Card card = cardDao.getCard(cardId, password, userId);
+			if(card == null){
+				returnMsg.setStatus(Status.ERROR);
+				if(cardDao.getCard(cardId) == null){
+					returnMsg.setMsg("Card not exist.");
+				} 
+				else if(cardDao.getCard(cardId, password) == null){
+					returnMsg.setMsg("Password Error");
+				}
+				else{
+					returnMsg.setMsg("The card is not belong to this user.");
+				}
+			}
+			else{
+				returnMsg.setStatus(Status.OK);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return returnMsg;
+	}
+	
 	public abstract ReturnMsg deposit(String operator, String cardId, 
 			String password, double money);
 	
 	public abstract ReturnMsg withdraw(String operator, String userId, String cardId, 
-			String password, String money);
+			String password, double money);
 }
