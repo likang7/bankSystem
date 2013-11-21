@@ -47,7 +47,7 @@ public class LogInServlet extends HttpServlet {
 		DepartmentService departmentService = new DepartmentService();
 		ReturnMsg msg = departmentService.logIn(username, password);
 		if(msg.getStatus().equals(Status.OK)){
-			HttpSession session = request.getSession();
+			//HttpSession session = request.getSession();
 			
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
