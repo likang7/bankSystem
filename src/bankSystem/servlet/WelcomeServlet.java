@@ -14,14 +14,14 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class welcomeServlet
  */
-@WebServlet("/welcomeServlet")
-public class welcomeServlet extends HttpServlet {
+@WebServlet("/WelcomeServlet")
+public class WelcomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public welcomeServlet() {
+    public WelcomeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,14 +31,11 @@ public class welcomeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		
 		HttpSession session = request.getSession(false);
-		if(session == null){
+		if(session == null || ((String)session.getAttribute("sessionUsername")) == null){
 			response.sendRedirect("login.html");
 		}else{
-			out.println("welcome back.");
+			response.sendRedirect("business/businessHome.jsp");
 		}
 	}
 

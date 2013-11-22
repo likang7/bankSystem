@@ -47,14 +47,16 @@ public class LogInServlet extends HttpServlet {
 		DepartmentService departmentService = new DepartmentService();
 		ReturnMsg msg = departmentService.logIn(username, password);
 		if(msg.getStatus().equals(Status.OK)){
-			//HttpSession session = request.getSession();
-			
+			HttpSession session = request.getSession();
+			session.setAttribute("sessionUsername", username);
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
 			out.println("log in successful£¬ redirecting...");
 			response.sendRedirect("welcome");
 		}
 		else{
+			request.getSession().invalidate();
+			request.getSession().setAttribute("sessionUsername", null);
 			request.setAttribute("msg", msg.getMsg());
 			request.setAttribute("returnLink", request.getHeader("referer"));
 			RequestDispatcher view = request.getRequestDispatcher("errorPage.jsp");

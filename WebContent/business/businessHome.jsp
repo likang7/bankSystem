@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>VIP个人用户业务</title>
+<title>银行管理系统</title>
+<link rel="stylesheet" href="../css/style.css" />
+<link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<h2>欢迎进入银行管理系统，请选择相应的业务。</h2>
 <jsp:include page="businessHeader.jsp"/>
-<br><br>
-<br> 当前业务类型：VIP个人业务
 </body>
 </html>
