@@ -17,26 +17,26 @@ session.setAttribute("businesstype", "openaccount");
 	<ul>
         <li>
         	<label for="userid">身份证号:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="text" name = "userid" size="40" required="required"/>
         </li>
         <li>
         	<label for="name">姓名:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="text" name = "name" size="40" required="required"/>
         </li>
         <li>
             <label for="type">账户类型:</label>
-            <select id="car">
+            <select id="car" name = "type">
 				<option>活期存款</option>
 				<option>定期存款</option>
             </select>
         </li>
         <li>
         	<label for="money">存款金额:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="text" name = "money" size="40" required="required"/>
         </li>
         <li>
         	<label for="password">初始密码:</label>
-            <input type="password" size="40" required="required"/>
+            <input type="password" name = "password" size="40" required="required"/>
         </li>        
 	</ul>
     <p>

@@ -1,7 +1,11 @@
 package bankSystem.service;
 
+import java.util.Date;
+
+import bankSystem.entity.Account;
 import bankSystem.entity.AccountType;
 import bankSystem.entity.Card;
+import bankSystem.entity.Log;
 import bankSystem.persistence.dao.DaoFactory;
 import bankSystem.persistence.dao.iface.*;
 
@@ -83,6 +87,42 @@ public abstract class BusinessService {
 	public abstract ReturnMsg deposit(String operator, String cardId, 
 			String password, double money);
 	
-	public abstract ReturnMsg withdraw(String operator, String userId, String cardId, 
+	public abstract ReturnMsg withdraw(String operator, String cardId, 
 			String password, double money);
+	
+	public abstract ReturnMsg query(String operator, String userId, String cardId,
+			String password, Date start, Date end);
+		
+	public abstract ReturnMsg transfer(String operator, String userId, String cardId,
+			String password, String username, String outCardId, String outUsername,
+			double money);
+	
+	//普通个人用户以及企业用户均能继承使用
+	public ReturnMsg changePasswd(String operator, String userId, String cardId,
+			String oldPassword, String newPassword){
+		ReturnMsg cardMsg = checkCard(cardId, oldPassword, userId);
+		if(cardMsg.getStatus().equals(Status.ERROR))
+			return cardMsg;
+		
+		ReturnMsg returnMsg = new ReturnMsg();
+		Card card = cardDao.getCard(cardId, oldPassword, userId);
+		try{
+			AccountDao accountDao = (AccountDao)DaoFactory.getInstance().getDao("AccountDao");
+			Account account = accountDao.getAccount(card.getAccountId());
+			card.setPassword(newPassword);
+			
+			cardDao.updateCard(card);
+			Log log = new Log(new Date(), "changePasswd", operator, cardId, account.getId(), 0, 
+					0, account.getBalance());
+			logDao.insertLog(log);
+			cardMsg.setLog(log);
+			cardMsg.setStatus(Status.OK);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return returnMsg;
+	}
+	
+	public abstract ReturnMsg closeAccount(String operator, String userId, String cardId,
+		 String password);
 }

@@ -1,11 +1,14 @@
 package bankSystem.service;
 
+import java.util.ArrayList;
+
 import bankSystem.entity.Log;
 
 public class ReturnMsg {
 	private Status status;
 	private String msg;
 	private Log log;
+	private ArrayList<Log> logs;
 	
 	public ReturnMsg() {
 		super();
@@ -13,13 +16,15 @@ public class ReturnMsg {
 		status = Status.OK;
 		msg = "";
 		log = null;
+		logs = null;
 	}
 
-	public ReturnMsg(Status status, String msg, Log log) {
+	public ReturnMsg(Status status, String msg, Log log, ArrayList<Log> logs) {
 		super();
 		this.status = status;
 		this.msg = msg;
 		this.log = log;
+		this.logs = logs;
 	}
 	
 	public Status getStatus() {
@@ -46,4 +51,11 @@ public class ReturnMsg {
 		this.log = log;
 	}
 
+	public ArrayList<Log> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(ArrayList<Log> logs) {
+		this.logs = logs;
+	}
 }

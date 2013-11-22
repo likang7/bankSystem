@@ -17,15 +17,15 @@ session.setAttribute("businesstype", "withdraw");
 	<ul>
         <li>
         	<label for="cardid">账号:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="text" size="40" name = "cardid" required="required"/>
         </li>
         <li>
         	<label for="password">密码:</label>
-            <input type="password" size="40" required="required"/>
+            <input type="password" size="40" name = "password" required="required"/>
         </li>
         <li>
         	<label for="money">取款金额:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="text" size="40" name = "money" required="required"/>
         </li>       
 	</ul>
     <p>

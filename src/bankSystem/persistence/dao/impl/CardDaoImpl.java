@@ -39,6 +39,18 @@ public class CardDaoImpl implements CardDao{
 		}
 		return null;
 	}
+	
+
+	@Override
+	public ArrayList<Card> getCardsByAccountId(String accountId) {
+		// TODO Auto-generated method stub
+		ArrayList<Card> cards = new ArrayList<Card>();
+		for(Card card : cards){
+			if(card.getAccountId().equals(accountId))
+				cards.add(card);
+		}
+		return cards;
+	}
 
 	@Override
 	public void insertCard(Card card) {

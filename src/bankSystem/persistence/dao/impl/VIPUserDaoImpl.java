@@ -10,7 +10,7 @@ public class VIPUserDaoImpl implements VIPUserDao {
 	private static ArrayList<VIPUser> users = new ArrayList<VIPUser>();
 
 	@Override
-	public VIPUser getIndividualUser(String userid) {
+	public VIPUser getVIPUser(String userid) {
 		// TODO Auto-generated method stub
 		for(VIPUser u : users){
 			if(u.getId().equals(userid)){
