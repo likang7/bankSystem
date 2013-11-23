@@ -32,7 +32,7 @@ session.setAttribute("businesstype", "openaccount");
         </li>
         <li>
         	<label for="money">存款金额:</label>
-            <input type="text" name = "money" size="40" required="required"/>
+            <input type="number" step = "0.01" name = "money" size="40" required="required"/>
         </li>
         <li>
         	<label for="password">初始密码:</label>
@@ -41,7 +41,8 @@ session.setAttribute("businesstype", "openaccount");
 	</ul>
     <p>
         <button type="submit" class="action">提交</button>
-        <button type="reset" class="right">重置</button>
+        <button type="reset" class="middle">重置</button>
+        <a class = "right" href="javascript:history.back(-1);">返回</a>
     </p>
 </form>
 </body>

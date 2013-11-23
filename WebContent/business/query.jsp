@@ -17,28 +17,29 @@ session.setAttribute("businesstype", "query");
 	<ul>
 	    <li>
         	<label for="userid">身份证号:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="text" size="40" name = "userid" required="required"/>
         </li>
         <li>
         	<label for="cardid">账号:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="number" size="40" name = "cardid" required="required"/>
         </li>
         <li>
         	<label for="password">密码:</label>
-            <input type="password" size="40" required="required"/>
+            <input type="password" size="40" name = "password" required="required"/>
         </li>
         <li>
         	<label for="start">起始时间:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="date" size="40" name = "startdate" required="required"/>
         </li>  
         <li>
         	<label for="end">结束时间:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="date" size="40" name = "enddate" required="required"/>
         </li>       
 	</ul>
     <p>
         <button type="submit" class="action">提交</button>
-        <button type="reset" class="right">重置</button>
+        <button type="reset" class="middle">重置</button>
+        <a class = "right" href="javascript:history.back(-1);">返回</a>
     </p>
 </form>
 </body>

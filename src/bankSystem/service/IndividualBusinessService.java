@@ -1,5 +1,6 @@
 package bankSystem.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import bankSystem.entity.*;
@@ -175,7 +176,7 @@ public class IndividualBusinessService extends BusinessService {
 		returnMsg.setLog(log);
 		
 		log = new Log(new Date(), "transferIn", operator, inCardId, inAccountId, money, 
-				0, outAccount.getBalance());
+				0, inAccount.getBalance());
 		logDao.insertLog(log);
 		
 		// return
@@ -206,7 +207,22 @@ public class IndividualBusinessService extends BusinessService {
 	public ReturnMsg query(String operator, String userId, String cardId,
 			String password, Date start, Date end) {
 		// TODO Auto-generated method stub
-		return null;
+		ReturnMsg cardMsg = checkCard(cardId, password, userId);
+		if(cardMsg.getStatus().equals(Status.ERROR))
+			return cardMsg;
+		
+		Card card = cardDao.getCard(cardId, password);
+		//Account account = accountDao.getAccount(card.getAccountId());
+		
+		ArrayList<Log> logs = logDao.getLogListByAccountIdDate(card.getAccountId(), start, end);
+		ReturnMsg returnMsg = new ReturnMsg();
+		//Log log = new Log(new Date(), "query", operator, cardId, card.getAccountId(), 0, 
+		//		0, account.getBalance());
+		
+		returnMsg.setStatus(Status.OK);
+		returnMsg.setLogs(logs);
+		
+		return returnMsg;
 	}
 
 	@Override
@@ -222,9 +238,14 @@ public class IndividualBusinessService extends BusinessService {
 		Account account = accountDao.getAccount(card.getAccountId());
 		String accountId = account.getId();
 		double balance = account.getBalance();
-		if(balance > 0){
-			withdraw(operator, cardId, password, balance);
+		if(balance > 0.01){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("please take the balance out first.");
+			return returnMsg;
+			//withdraw(operator, cardId, password, balance);
 		}
+		
+			
 		cardDao.deleteCard(cardId);
 		if(cardDao.getCardsByAccountId(accountId).isEmpty()){
 			accountDao.deleteAccount(accountId);

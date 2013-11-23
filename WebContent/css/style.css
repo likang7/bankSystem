@@ -2,7 +2,7 @@
 body {background:#fff url(../images/bg.gif) repeat top center;font-size:87.5%;font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;font-weight:300;color:#8c8a8b;text-align:center;line-height:1.7em;}
 a:link, a:visited, strong {color:#e15d46;}
 a:hover {text-decoration:none;}
-h1 {font-size:6em;font-family: 'Engagement', cursive;line-height:1.89em;text-shadow:1px 1px 0px #fff, 2px 2px 0px rgba(0, 0, 0, 0.1), 3px 3px 0px #fff, 4px 4px 0px rgba(0, 0, 0, 0.1), 5px 5px 0px #fff;}
+h1 {font-size:4em;font-family: 'Engagement', cursive;line-height:1.89em;text-shadow:1px 1px 0px #fff, 2px 2px 0px rgba(0, 0, 0, 0.1), 3px 3px 0px #fff, 4px 4px 0px rgba(0, 0, 0, 0.1), 5px 5px 0px #fff;}
 .left {float:left;}
 .right {float:right;}
 form {width:560px;margin:0px auto;text-align:left;}

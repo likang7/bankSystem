@@ -1,9 +1,11 @@
 package bankSystem.persistence.dao.iface;
 
+import bankSystem.entity.EnterpriseUser;
 import bankSystem.entity.User;
 
 public interface EnterpriseUserDao {
-	User getEnterpriseUser(String userid);
+	
+	EnterpriseUser getEnterpriseUser(String userid);
 	
 	void insertUser(User user);
 	

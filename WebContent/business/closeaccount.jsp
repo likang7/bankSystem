@@ -16,21 +16,22 @@ session.setAttribute("businesstype", "closeaccount");
 <form method="post" action="../businessservice">
 	<ul>
 		<li>
-        	<label for="outuserid">身份证号:</label>
-            <input type="text" size="40" required="required"/>
+        	<label for="userid">身份证号:</label>
+            <input type="text" size="40" name = "userid" required="required"/>
         </li>
         <li>
         	<label for="cardid">账号:</label>
-            <input type="text" size="40" required="required"/>
+            <input type="number" size="40" name = "cardid" required="required"/>
         </li>
         <li>
-        	<label for="oldpasswd">密码:</label>
-            <input type="password" size="40" required="required"/>
+        	<label for="passwd">密码:</label>
+            <input type="password" size="40" name = "password" required="required"/>
         </li>  
 	</ul>
     <p>
         <button type="submit" class="action">提交</button>
-        <button type="reset" class="right">重置</button>
+        <button type="reset" class="middle">重置</button>
+        <a class = "right" href="javascript:history.back(-1);">返回</a>
     </p>
 </form>
 </body>

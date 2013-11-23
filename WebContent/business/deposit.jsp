@@ -17,7 +17,7 @@ session.setAttribute("businesstype", "deposit");
 	<ul>
         <li>
         	<label for="cardid">账号:</label>
-            <input type="text" size="40" name = "cardid" required="required"/>
+            <input type="number" size="40" name = "cardid" required="required"/>
         </li>
         <li>
         	<label for="password">密码:</label>
@@ -25,12 +25,14 @@ session.setAttribute("businesstype", "deposit");
         </li>
         <li>
         	<label for="money">存款金额:</label>
-            <input type="text" size="40" name = "money" required="required"/>
+            <input type="number" step = "0.01" size="40" name = "money" required="required"/>
         </li>       
 	</ul>
     <p>
         <button type="submit" class="action">提交</button>
-        <button type="reset" class="right">重置</button>
+        <button type="reset" class="middle">重置</button>
+        <a class = "right" href="javascript:history.back(-1);">返回</a>
+        
     </p>
 </form>
 </body>
