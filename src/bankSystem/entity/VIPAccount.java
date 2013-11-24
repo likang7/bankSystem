@@ -1,8 +1,13 @@
 package bankSystem.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class VIPAccount extends Account {
+public class VIPAccount extends Account implements Serializable  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date excessStart;
 	private boolean isFrozen;
 	private double accBalanceThisMonth;

@@ -6,9 +6,23 @@ import java.util.Iterator;
 import bankSystem.entity.VIPUser;
 import bankSystem.persistence.dao.iface.VIPUserDao;
 
-public class VIPUserDaoImpl implements VIPUserDao {
-	private static ArrayList<VIPUser> users = new ArrayList<VIPUser>();
-
+public class VIPUserDaoImpl extends basicPersistence implements VIPUserDao {
+	private ArrayList<VIPUser> users = new ArrayList<VIPUser>();
+	private static String persistencePath = persistenceRoot + "/VIPUsers.obj";
+	
+	public VIPUserDaoImpl() throws Exception{
+		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);
+		for(Object object : objects){
+			users.add((VIPUser)object);
+		}
+	}
+	
+	protected void save() throws Exception{
+		ArrayList<Object> objects = new ArrayList<Object>();
+		objects.addAll(users);
+		super.writeObject(persistenceRoot, persistencePath, objects);
+	}
+	
 	@Override
 	public VIPUser getVIPUser(String userid) {
 		// TODO Auto-generated method stub
@@ -24,6 +38,11 @@ public class VIPUserDaoImpl implements VIPUserDao {
 	public void insertUser(VIPUser user) {
 		// TODO Auto-generated method stub
 		users.add(user);
+		try{
+			save();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -35,6 +54,11 @@ public class VIPUserDaoImpl implements VIPUserDao {
 				it.remove();
 				break;
 			}
+		}
+		try{
+			save();
+		}catch (Exception e){
+			e.printStackTrace();
 		}
 	}
 

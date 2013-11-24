@@ -4,8 +4,25 @@ import java.util.ArrayList;
 import bankSystem.entity.Department;
 import bankSystem.persistence.dao.iface.DepartmentDao;
 
-public class DepartmentDaoImpl implements DepartmentDao {
-	private static ArrayList<Department> departments = new ArrayList<Department>();
+public class DepartmentDaoImpl extends basicPersistence implements DepartmentDao {
+	private ArrayList<Department> departments = new ArrayList<Department>();
+	private static String persistencePath = persistenceRoot + "/departments.obj";
+
+	
+	public DepartmentDaoImpl() throws Exception{
+		super();
+		// TODO Auto-generated constructor stub
+		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);
+		for(Object object : objects){
+			departments.add((Department)object);
+		}	
+	}
+	
+	protected void save() throws Exception{
+		ArrayList<Object> objects = new ArrayList<Object>();
+		objects.addAll(departments);
+		super.writeObject(persistenceRoot, persistencePath, objects);
+	}
 	
 	@Override
 	public Department getDepartment(String id) {
@@ -21,6 +38,11 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	public void insertDepartment(Department department) {
 		// TODO Auto-generated method stub
 		departments.add(department);
+		try{
+			save();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -1,6 +1,12 @@
 package bankSystem.entity;
 
-public class Card {
+import java.io.Serializable;
+
+public class Card  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String password;
 	private String accountId; 
@@ -50,5 +56,10 @@ public class Card {
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Card [id=" + id + ", password=" + password + ", accountId="
+				+ accountId + ", userId=" + userId + "]";
+	}
 }

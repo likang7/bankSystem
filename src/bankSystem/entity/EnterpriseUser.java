@@ -1,6 +1,12 @@
 package bankSystem.entity;
 
-public class EnterpriseUser extends User {
+import java.io.Serializable;
+
+public class EnterpriseUser extends User implements Serializable  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String enterpriseId;
 	private boolean isSuper;
 	

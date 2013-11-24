@@ -3,17 +3,18 @@ package bankSystem.persistence.dao.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import bankSystem.entity.IndividualUser;
-import bankSystem.persistence.dao.iface.IndividualUserDao;
+import bankSystem.entity.EnterpriseUser;
+import bankSystem.persistence.dao.iface.EnterpriseUserDao;
 
-public class IndividualUserDaoImpl extends basicPersistence implements IndividualUserDao {
-	private ArrayList<IndividualUser> users = new ArrayList<IndividualUser>();
-	private static String persistencePath = persistenceRoot + "/individualUsers.obj";
+public class EnterpriseUserDaoImpl extends basicPersistence implements EnterpriseUserDao {
+	private ArrayList<EnterpriseUser> users = 
+			new ArrayList<EnterpriseUser>();
+	private static String persistencePath = persistenceRoot + "/enterpriseUsers.obj";
 	
-	public IndividualUserDaoImpl() throws Exception{
+	public EnterpriseUserDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);
 		for(Object object : objects){
-			users.add((IndividualUser)object);
+			users.add((EnterpriseUser)object);
 		}
 	}
 	
@@ -24,18 +25,18 @@ public class IndividualUserDaoImpl extends basicPersistence implements Individua
 	}
 	
 	@Override
-	public IndividualUser getIndividualUser(String userid) {
+	public EnterpriseUser getEnterpriseUser(String userid) {
 		// TODO Auto-generated method stub
-		for(IndividualUser user : users){
+		for(EnterpriseUser user : users){
 			if(user.getId().equals(userid)){
 				return user;
 			}
-		}
+		}		
 		return null;
 	}
 
 	@Override
-	public void insertUser(IndividualUser user) {
+	public void insertUser(EnterpriseUser user) {
 		// TODO Auto-generated method stub
 		users.add(user);
 		try{
@@ -48,7 +49,7 @@ public class IndividualUserDaoImpl extends basicPersistence implements Individua
 	@Override
 	public void deleteUser(String userid) {
 		// TODO Auto-generated method stub
-		Iterator<IndividualUser> it = users.iterator();
+		Iterator<EnterpriseUser> it = users.iterator();
 		while(it.hasNext()){
 			if(it.next().getId().equals(userid)){
 				it.remove();
@@ -60,7 +61,6 @@ public class IndividualUserDaoImpl extends basicPersistence implements Individua
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		
 	}
 
 }

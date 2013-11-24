@@ -1,7 +1,5 @@
 package bankSystem.service;
 
-import bankSystem.entity.Employee;
-import bankSystem.entity.Position;
 import bankSystem.persistence.dao.DaoFactory;
 import bankSystem.persistence.dao.iface.*;
 

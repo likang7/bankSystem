@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.SingleThreadModel;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,9 @@ import bankSystem.service.*;
 /**
  * Servlet implementation class businessServiceServlet
  */
+@SuppressWarnings("deprecation")
 @WebServlet("/businessServiceServlet")
-public class businessServiceServlet extends HttpServlet {
+public class businessServiceServlet extends HttpServlet implements SingleThreadModel{
 	private static final long serialVersionUID = 1L;
        
     /**

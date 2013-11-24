@@ -1,6 +1,12 @@
 package bankSystem.entity;
 
-public class VIPUser extends User{
+import java.io.Serializable;
+
+public class VIPUser extends User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int excessLimit;
 
 	public int getExcessLimit() {

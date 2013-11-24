@@ -1,5 +1,7 @@
 package bankSystem.entity;
 
-public enum Position {
+import java.io.Serializable;
+
+public enum Position implements Serializable  {
 	Operator, Manager, Supervisor, Administrator
 }

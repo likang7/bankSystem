@@ -7,9 +7,23 @@ import java.util.Date;
 import bankSystem.entity.Log;
 import bankSystem.persistence.dao.iface.LogDao;
 
-public class LogDaoImpl implements LogDao {
-	private static ArrayList<Log> logs = new ArrayList<Log>();
+public class LogDaoImpl extends basicPersistence implements LogDao {
+	private ArrayList<Log> logs = new ArrayList<Log>();
 	private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+	private static String persistencePath = persistenceRoot + "/logs.obj";
+	
+	public LogDaoImpl() throws Exception{
+		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);
+		for(Object object : objects){
+			logs.add((Log)object);
+		}
+	}	
+	
+	protected void save() throws Exception{
+		ArrayList<Object> objects = new ArrayList<Object>();
+		objects.addAll(logs);
+		super.writeObject(persistenceRoot, persistencePath, objects);
+	}
 	
 	@Override
 	public ArrayList<Log> getLogListbyOperator(String operator) {
@@ -122,6 +136,11 @@ public class LogDaoImpl implements LogDao {
 	public void insertLog(Log log) {
 		// TODO Auto-generated method stub
 		logs.add(log);
+		try{
+			save();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -1,10 +1,16 @@
 package bankSystem.entity;
 
+import java.io.Serializable;
+
 /**
  * @author LK
  *
  */
-public abstract class User {
+public abstract class User implements Serializable  {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
 	

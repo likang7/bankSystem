@@ -7,5 +7,5 @@ public interface EnterpriseDao {
 	
 	void insertEnterprise(Enterprise enterprise);
 	void deleteEnterprise(String id);
-	void update(Enterprise enterprise);
+	void updateEnterprise(Enterprise enterprise);
 }

@@ -14,13 +14,25 @@ import bankSystem.persistence.dao.iface.EmployeeDao;
  * @author LK
  *
  */
-public class EmployeeDaoImpl implements EmployeeDao {
-	private static ArrayList<Employee> employees = new ArrayList<Employee>();
-	
-	public EmployeeDaoImpl(){
+public class EmployeeDaoImpl extends basicPersistence implements EmployeeDao {
+	private ArrayList<Employee> employees = new ArrayList<Employee>();
+	private static String persistencePath = persistenceRoot + "/employees.obj";
+
+	public EmployeeDaoImpl() throws Exception{
+		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);
+		for(Object object : objects){
+			employees.add((Employee)object);
+		}
+		
 		if(getEmployee("root") == null){
 			insertEmployee(new Employee("root", "123456", Position.Administrator, "0001"));
 		}
+	}
+	
+	protected void save() throws Exception{
+		ArrayList<Object> objects = new ArrayList<Object>();
+		objects.addAll(employees);
+		super.writeObject(persistenceRoot, persistencePath, objects);
 	}
 
 	@Override
@@ -47,6 +59,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public void insertEmployee(Employee employee) {
 		// TODO Auto-generated method stub
 		employees.add(employee);
+		try{
+			save();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -64,6 +81,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			Employee e = it.next();
 			if(e.getUsername().equals(username)){
 				it.remove();
+				try{
+					save();
+				}catch (Exception ex){
+					ex.printStackTrace();
+				}
 				break;
 			}
 		}

@@ -1,7 +1,12 @@
 package bankSystem.entity;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Account {
+public class Account implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private AccountType type;
 	private double balance;
