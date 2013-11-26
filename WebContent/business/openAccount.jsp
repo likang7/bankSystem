@@ -77,9 +77,9 @@ if(title != null)
         </li>
         <li>
             <label for="type">账户类型:</label>
-            <select id="car" name = "type">
-				<option>活期存款</option>
-				<option>定期存款</option>
+            <select name = "type">
+				<option value = "current">活期存款</option>
+				<option value = "fixed">定期存款</option>
             </select>
         </li>
         <li>

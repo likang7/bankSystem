@@ -16,6 +16,12 @@ public class DepartmentDaoImpl extends basicPersistence implements DepartmentDao
 		for(Object object : objects){
 			departments.add((Department)object);
 		}	
+		if(getDepartment("1") == null){
+			insertDepartment(new Department("1", "individual"));
+		}
+		if(getDepartment("2") == null){
+			insertDepartment(new Department("2", "vip"));
+		}
 	}
 	
 	protected void save() throws Exception{

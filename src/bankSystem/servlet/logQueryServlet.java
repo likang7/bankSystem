@@ -46,7 +46,7 @@ public class logQueryServlet extends HttpServlet {
 		ArrayList<Employee> employees = new DepartmentService().getUserAndSubordinatesByUsername(operatorId);
 		StringBuilder results = new StringBuilder();
 		for(Employee employee : employees){
-			results.append(employee.toString());
+			results.append(employee.toString()).append("<br>");
 		}
 		request.setAttribute("employees", results.toString());
 		RequestDispatcher view = request.getRequestDispatcher("business/logquery.jsp");

@@ -69,6 +69,6 @@ public class Employee implements Serializable  {
 	public String toString() {
 		return "username=" + username + ", position=" + position
 				+ ", departmentId=" + departmentId + ", superiorId="
-				+ superiorId;
+				+ superiorId	;
 	}
 }

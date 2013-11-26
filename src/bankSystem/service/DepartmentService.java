@@ -103,7 +103,6 @@ public class DepartmentService {
 			results.addAll(employeeDao.getAllEmployees());
 		}
 		else if(position.equals(Position.Supervisor)){
-			results.add(employeeDao.getEmployee(username));
 			results.addAll(employeeDao.getEmployeesByDepartmentId(employee.getDepartmentId()));
 		}
 		else if(position.equals(Position.Manager)){
