@@ -1,5 +1,6 @@
 package bankSystem.entity;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Log implements Serializable  {
@@ -15,8 +16,16 @@ public class Log implements Serializable  {
 	private double income;
 	private double expenditure;
 	private double balance;
-	private String accountType;
+	private String accountType;//enterprise or individual
 	
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
+
 	public Log(Date time, String operation, String operator, String cardId,
 			String accountId, String accountType, double income, double expenditure, double balance) {
 		super();
@@ -41,10 +50,12 @@ public class Log implements Serializable  {
 
 	@Override
 	public String toString() {
-		return "Log [time=" + time + ", operation=" + operation + ", operator="
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String timeStr = sdf.format(time);
+		return "time=" + timeStr + ", operation=" + operation + ", operator="
 				+ operator + ", cardId=" + cardId + ", accountId=" + accountId
 				+ ", income=" + income + ", expenditure=" + expenditure
-				+ ", balance=" + balance + "]";
+				+ ", balance=" + balance;
 	}
 
 	public String getOperation() {

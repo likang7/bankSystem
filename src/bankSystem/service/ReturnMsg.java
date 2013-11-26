@@ -2,6 +2,7 @@ package bankSystem.service;
 
 import java.util.ArrayList;
 
+import bankSystem.entity.Employee;
 import bankSystem.entity.Log;
 
 public class ReturnMsg {
@@ -9,6 +10,7 @@ public class ReturnMsg {
 	private String msg;
 	private Log log;
 	private ArrayList<Log> logs;
+	private ArrayList<Employee> employees;
 	
 	public ReturnMsg() {
 		super();

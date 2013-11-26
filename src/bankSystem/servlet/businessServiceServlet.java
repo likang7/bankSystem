@@ -26,6 +26,7 @@ import bankSystem.service.*;
 public class businessServiceServlet extends HttpServlet implements SingleThreadModel{
 	private static final long serialVersionUID = 1L;
     private static final String resultPage = "result.jsp";
+    private static final String logResultPage = "logtable.jsp";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -117,7 +118,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 						logAsStr.append(log.toString()).append("<br>");
 					}
 					forwardHelper(request, response, logAsStr.toString(), 
-							"business/individualBusinessService.jsp", resultPage, msg.getStatus().toString());
+							"business/individualBusinessService.jsp", logResultPage, msg.getStatus().toString());
 				}
 			}catch (Exception e){
 				e.printStackTrace();
@@ -250,7 +251,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 						logAsStr.append(log.toString()).append("<br>");
 					}
 					forwardHelper(request, response, logAsStr.toString(), 
-							"business/VIPBusinessService.jsp", resultPage, msg.getStatus().toString());
+							"business/VIPBusinessService.jsp", logResultPage, msg.getStatus().toString());
 				}
 			}catch (Exception e){
 				e.printStackTrace();
@@ -386,7 +387,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 						logAsStr.append(log.toString()).append("<br>");
 					}
 					forwardHelper(request, response, logAsStr.toString(), 
-							"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+							"business/enterpriseBusinessService.jsp", logResultPage, msg.getStatus().toString());
 				}
 			}catch (Exception e){
 				e.printStackTrace();
@@ -407,7 +408,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			if(msg.getStatus().equals(Status.ERROR)){//失败，输出失败信息
 				forwardHelper(request, response, msg.getMsg(), request.getHeader("referer"), resultPage, msg.getStatus().toString());
 			}
-			else{//成功，返回余额
+			else{//成功
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
 						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
 			}
@@ -427,7 +428,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			if(msg.getStatus().equals(Status.ERROR)){//失败，输出失败信息
 				forwardHelper(request, response, msg.getMsg(), request.getHeader("referer"), resultPage, msg.getStatus().toString());
 			}
-			else{//成功，返回余额
+			else{//成功
 				forwardHelper(request, response, "成功修改密码！", 
 						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
 			}				
@@ -441,10 +442,27 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			if(msg.getStatus().equals(Status.ERROR)){//失败，输出失败信息
 				forwardHelper(request, response, msg.getMsg(), request.getHeader("referer"), resultPage, msg.getStatus().toString());
 			}
-			else{//成功，返回余额
+			else{//成功
 				forwardHelper(request, response, "销户成功！", 
 						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
 			}				
+		}
+		else if(businesstype.equals("addoperator")){
+			String userId = (String)request.getParameter("userid");
+			String cardId = (String)request.getParameter("cardid");
+			String password = (String)request.getParameter("password");
+			String newuserId = (String)request.getParameter("newuserid");
+			String newusername = (String)request.getParameter("newusername");
+			String newpassword = (String)request.getParameter("newpassword");
+			ReturnMsg msg = new EnterpriseBusinessService().addOperator(operatorId, userId, cardId, password, 
+					newuserId, newusername, newpassword);
+			if(msg.getStatus().equals(Status.ERROR)){//失败，输出失败信息
+				forwardHelper(request, response, msg.getMsg(), request.getHeader("referer"), resultPage, msg.getStatus().toString());
+			}
+			else{//成功
+				forwardHelper(request, response, "新增操作人成功，他的卡号是：" + msg.getMsg(), 
+						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+			}	
 		}
 		else{
 			forwardHelper(request, response, "未知的业务类型！", 
@@ -459,7 +477,6 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8"); 
-		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		String usertype = (String)session.getAttribute("usertype");
 		String businesstype = (String)session.getAttribute("businesstype");

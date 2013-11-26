@@ -13,14 +13,16 @@ public class Employee implements Serializable  {
 	private String password;
 	private Position position; 
 	private String departmentId;
+	private String superiorId;
 	
 	public Employee(String username, String password, Position position,
-			String departmentId) {
+			String departmentId, String superiorId) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.position = position;
 		this.departmentId = departmentId;
+		this.superiorId = superiorId;
 	}
 
 	public String getUsername() {
@@ -55,4 +57,18 @@ public class Employee implements Serializable  {
 		this.departmentId = departmentId;
 	}
 
+	public String getSuperiorId() {
+		return superiorId;
+	}
+
+	public void setSuperiorId(String superiorId) {
+		this.superiorId = superiorId;
+	}
+
+	@Override
+	public String toString() {
+		return "username=" + username + ", position=" + position
+				+ ", departmentId=" + departmentId + ", superiorId="
+				+ superiorId;
+	}
 }

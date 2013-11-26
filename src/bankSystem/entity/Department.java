@@ -9,18 +9,16 @@ public class Department implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
-	private String superiorId;
 	
 	public Department() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Department(String id, String name, String superiorId) {
+	public Department(String id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.superiorId = superiorId;
 	}
 
 	public String getId() {
@@ -37,14 +35,6 @@ public class Department implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getSuperiorId() {
-		return superiorId;
-	}
-
-	public void setSuperiorId(String superiorId) {
-		this.superiorId = superiorId;
 	}
 		
 }

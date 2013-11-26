@@ -25,7 +25,7 @@ public class EmployeeDaoImpl extends basicPersistence implements EmployeeDao {
 		}
 		
 		if(getEmployee("root") == null){
-			insertEmployee(new Employee("root", "123456", Position.Administrator, "0001"));
+			insertEmployee(new Employee("root", "123456", Position.Administrator, "0001", null));
 		}
 		save();
 	}
@@ -92,4 +92,43 @@ public class EmployeeDaoImpl extends basicPersistence implements EmployeeDao {
 		}
 	}
 
+	@Override
+	public ArrayList<Employee> getEmployeesByDepartmentId(String departmentId) {
+		// TODO Auto-generated method stub
+		ArrayList<Employee> results = new ArrayList<Employee>();
+		for(Employee e : employees){
+			if(e.getDepartmentId().equals(departmentId))
+				results.add(e);
+		}
+		return results;
+	}
+
+	@Override
+	public ArrayList<Employee> getEmployeesByDepartmentIdSuperiorId(
+			String departmentId, String superiorId) {
+		// TODO Auto-generated method stub
+		ArrayList<Employee> results = new ArrayList<Employee>();
+		for(Employee e : employees){
+			if(e.getDepartmentId().equals(departmentId) && e.getSuperiorId().equals(superiorId))
+				results.add(e);
+		}
+		return results;
+	}
+
+	@Override
+	public ArrayList<Employee> getSubordinates(String username) {
+		// TODO Auto-generated method stub
+		Employee employee = this.getEmployee(username);
+		String departmentId = employee.getDepartmentId();
+		
+		return this.getEmployeesByDepartmentIdSuperiorId(departmentId, username);
+	}
+
+	@Override
+	public ArrayList<Employee> getAllEmployees() {
+		// TODO Auto-generated method stub
+		return (ArrayList<Employee>) employees.clone();
+	}
+	
+	
 }

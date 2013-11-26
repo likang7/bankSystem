@@ -11,12 +11,12 @@
 <title>bank system</title>
 </head>
 <body>
-<h1>业务系统</h1>
+<h1>银行管理系统</h1>
 <ul id = "menu">
 <li><a href="individualBusinessService.jsp">普通个人业务</a></li> 
 <li><a href="VIPBusinessService.jsp">VIP个人业务</a></li> 
 <li><a href="enterpriseBusinessService.jsp">企业用户业务</a></li>
-<li><a href="http://www.baidu.com">后台管理</a></li>
+<li><a href="departmentService.jsp">后台管理</a></li>
 <li><a href="../logoff">注销</a></li>
 </ul>
 <%
