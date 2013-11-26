@@ -10,6 +10,7 @@ import bankSystem.persistence.dao.iface.*;
 public class IndividualBusinessService extends BusinessService {
 	private IndividualUserDao userDao;
 	private AccountDao accountDao;
+	private static String accountType = "individual";
 	
 	public IndividualBusinessService(){
 		super();
@@ -25,10 +26,19 @@ public class IndividualBusinessService extends BusinessService {
 			String name, String accountType, double money, String password){
 		ReturnMsg returnMsg = new ReturnMsg();
 		
-		if(userDao.getIndividualUser(userId) == null){
-			IndividualUser user = new IndividualUser(userId, name);
+		IndividualUser user = userDao.getIndividualUser(userId);
+		if(user != null){
+			if(!user.getName().equals(name)){
+				returnMsg.setStatus(Status.ERROR);
+				returnMsg.setMsg("userId and username not agreed");
+				return returnMsg;
+			}
+		}
+		else{
+			user = new IndividualUser(userId, name);
 			userDao.insertUser(user);
 		}
+		
 		String cardId = sequenceDao.getNextId();
 		String accountId = sequenceDao.getNextId();
 		Card card = new Card(cardId, password, accountId, userId);
@@ -40,7 +50,7 @@ public class IndividualBusinessService extends BusinessService {
 		cardDao.insertCard(card);
 		accountDao.insertAccount(account);
 		
-		Log log = new Log(date, "openAccount", operatorId, cardId, accountId, money, 0, money);
+		Log log = new Log(date, "openAccount", operatorId, cardId, accountId, accountType, money, 0, money);
 		logDao.insertLog(log);
 		
 		returnMsg.setStatus(Status.OK);
@@ -68,7 +78,7 @@ public class IndividualBusinessService extends BusinessService {
 			accountDao.updateAccount(account);
 			
 			Log log = new Log(new Date(), "deposit", operator, cardId, account.getId(), 
-					money, 0, account.getBalance());
+					accountType, money, 0, account.getBalance());
 			returnMsg.setLog(log);
 			returnMsg.setMsg(String.valueOf(account.getBalance()));
 			logDao.insertLog(log);
@@ -99,8 +109,8 @@ public class IndividualBusinessService extends BusinessService {
 			account.setBalance(balance - money);
 			accountDao.updateAccount(account);
 			
-			Log log = new Log(new Date(), "withdraw", operator, cardId, account.getId(), 0, 
-					money, account.getBalance());
+			Log log = new Log(new Date(), "withdraw", operator, cardId, account.getId(), 
+					accountType, 0, money, account.getBalance());
 			returnMsg.setStatus(Status.OK);
 			returnMsg.setMsg(String.valueOf(account.getBalance()));
 			returnMsg.setLog(log);
@@ -134,16 +144,18 @@ public class IndividualBusinessService extends BusinessService {
 			return returnMsg;
 		}
 		String inUserId = inCard.getUserId();
+		if(!super.isUserIdUsernameAgreed(inUserId, inUsername)){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("inCard is not belong to " + inUsername);
+			return returnMsg;
+		}
+		
 		if(!inUserId.equals(userId)){
 			returnMsg.setStatus(Status.ERROR);
 			returnMsg.setMsg("individual user can only transfer to his own card.");
 			return returnMsg;
 		}
-		Card outCard = cardDao.getCard(cardId, password);
-		//************转入账户需要修改，VIPaccount是否存在该转入账户！！！！！！！
-		//！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-		//！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-		
+		Card outCard = cardDao.getCard(cardId, password);		
 		// start transfer
 		String outAccountId = outCard.getAccountId();
 		String inAccountId = inCard.getAccountId();
@@ -155,7 +167,9 @@ public class IndividualBusinessService extends BusinessService {
 			returnMsg.setMsg("This account has not enough balance.");
 			return returnMsg;
 		}
-		Account inAccount = accountDao.getAccount(inAccountId);
+		
+		
+		Account inAccount = super.getAccountById(inAccountId);
 		//here we should check VIP account in the future
 		if(inAccount == null){
 			returnMsg.setStatus(Status.ERROR);
@@ -167,39 +181,38 @@ public class IndividualBusinessService extends BusinessService {
 		outAccount.setBalance(outBalance - money);
 		inAccount.setBalance(inAccount.getBalance() + money);
 		accountDao.updateAccount(outAccount);
-		accountDao.updateAccount(inAccount);
+		try{
+			if(inAccount.getClass().equals(VIPAccount.class)){
+				((AccountDao)DaoFactory.getInstance().getDao("VIPAccountDao"))
+					.updateAccount((VIPAccount)inAccount);
+			}
+			else if(inAccount.getClass().equals(Account.class)){
+				accountDao.updateAccount(inAccount);
+			}
+			else if(inAccount.getClass().equals(EnterpriseAccount.class)){
+				((EnterpriseAccountDao)DaoFactory.getInstance().getDao("EnterpriseAccountDao"))
+					.updateAccount((EnterpriseAccount)inAccount);
+			}
+			else{
+				throw new Exception();
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		
 		//record the log
-		Log log = new Log(new Date(), "transferOut", operator, cardId, outAccountId, 0, 
-				money, outAccount.getBalance());
+		Log log = new Log(new Date(), "transferOut", operator, cardId, outAccountId, 
+				accountType, 0,	money, outAccount.getBalance());
 		logDao.insertLog(log);
 		returnMsg.setLog(log);
 		
-		log = new Log(new Date(), "transferIn", operator, inCardId, inAccountId, money, 
-				0, inAccount.getBalance());
+		log = new Log(new Date(), "transferIn", operator, inCardId, inAccountId, 
+				accountType, money, 0, inAccount.getBalance());
 		logDao.insertLog(log);
 		
 		// return
 		returnMsg.setStatus(Status.OK);
-		returnMsg.setMsg(String.valueOf(outAccount.getBalance()));
-
-
-//		if(userDao.getIndividualUser(inUserId) == null){
-//			try{
-//				VIPUserDao vipUserDao = (VIPUserDao)DaoFactory.getInstance().getDao("VIPUserDao");
-//				if(vipUserDao.getVIPUser(inUserId) == null){
-//					EnterpriseUserDao enDao= (EnterpriseUserDao)DaoFactory.getInstance().getDao("EnterpriseUserDao");
-//					if(enDao.getEnterpriseUser(inUserId) == null){
-//						returnMsg.setStatus(Status.ERROR);
-//						returnMsg.setMsg("The card " + inCardId +" is not belong to " + inUsername);
-//					}
-//				}
-//			}catch (Exception e){
-//				e.printStackTrace();
-//			}
-//		}
-		
-		
+		returnMsg.setMsg(String.valueOf(outAccount.getBalance()));	
 		return returnMsg;
 	}
 
@@ -212,12 +225,12 @@ public class IndividualBusinessService extends BusinessService {
 			return cardMsg;
 		
 		Card card = cardDao.getCard(cardId, password);
-		//Account account = accountDao.getAccount(card.getAccountId());
+		Account account = accountDao.getAccount(card.getAccountId());
 		
 		ArrayList<Log> logs = logDao.getLogListByAccountIdDate(card.getAccountId(), start, end);
 		ReturnMsg returnMsg = new ReturnMsg();
-		//Log log = new Log(new Date(), "query", operator, cardId, card.getAccountId(), 0, 
-		//		0, account.getBalance());
+		Log log = new Log(new Date(), "query", operator, cardId, card.getAccountId(), accountType, 0, 
+				0, account.getBalance());
 		
 		returnMsg.setStatus(Status.OK);
 		returnMsg.setLogs(logs);
@@ -251,12 +264,32 @@ public class IndividualBusinessService extends BusinessService {
 			accountDao.deleteAccount(accountId);
 		}
 		
-		Log log = new Log(new Date(), "closeAccount", operator, cardId, accountId, 0, 
-				balance, 0);
+		Log log = new Log(new Date(), "closeAccount", operator, cardId, accountId, 
+				accountType, 0, balance, 0);
 		returnMsg.setStatus(Status.OK);
 		returnMsg.setLog(log);
 		logDao.insertLog(log);
 		
+		return returnMsg;
+	}
+	
+	public ReturnMsg changePasswd(String operator, String userId, String cardId,
+			String oldPassword, String newPassword){
+		ReturnMsg cardMsg = checkCard(cardId, oldPassword, userId);
+		if(cardMsg.getStatus().equals(Status.ERROR))
+			return cardMsg;
+		
+		ReturnMsg returnMsg = new ReturnMsg();
+		Card card = cardDao.getCard(cardId, oldPassword, userId);
+		Account account = accountDao.getAccount(card.getAccountId());
+		card.setPassword(newPassword);
+		
+		cardDao.updateCard(card);
+		Log log = new Log(new Date(), "changePasswd", operator, cardId, account.getId(), 
+				accountType, 0,	0, account.getBalance());
+		logDao.insertLog(log);
+		returnMsg.setLog(log);
+		returnMsg.setStatus(Status.OK);
 		return returnMsg;
 	}
 

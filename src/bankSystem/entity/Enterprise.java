@@ -9,13 +9,12 @@ public class Enterprise implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String enterpriseName;
-	private double balanceLimit;
+	private static double balanceLimit = 10000;
 	
 	public Enterprise(String id, String enterpriseName) {
 		super();
 		this.id = id;
 		this.enterpriseName = enterpriseName;
-		this.balanceLimit = 10000;
 	}
 
 	public String getId() {
@@ -34,12 +33,8 @@ public class Enterprise implements Serializable  {
 		this.enterpriseName = enterpriseName;
 	}
 
-	public double getBalanceLimit() {
+	public static double getBalanceLimit() {
 		return balanceLimit;
-	}
-
-	public void setBalanceLimit(double balanceLimit) {
-		this.balanceLimit = balanceLimit;
 	}
 	
 }

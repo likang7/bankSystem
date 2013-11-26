@@ -10,7 +10,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public abstract class basicPersistence {
-	protected static String persistenceRoot;
+	protected static String persistenceRoot = new String();
 	
 	public basicPersistence(){
 		persistenceRoot = this.getClass().getClassLoader().getResource("/").getPath();
@@ -35,7 +35,6 @@ public abstract class basicPersistence {
 		}
 		else {
 			new File(persistencePath).createNewFile();
-			System.out.println(persistenceRoot + "2");
 			// wrapper, avoid EOFException
 			FileInputStream istream = new FileInputStream(persistencePath);
 			if(istream.available() > 0){

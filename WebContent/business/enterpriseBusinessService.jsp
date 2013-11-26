@@ -21,9 +21,9 @@ session.setAttribute("usertype", "enterprise");
 
 <div>
 <ul id = "navlist">
-<li><a href="iopenAccount.jsp">开户</a></li>
+<li><a href="openAccount.jsp">开户</a></li>
 <li><a href="deposit.jsp">存款</a></li>
-<li><a href="iwithdraw.jsp">取款</a></li>
+<li><a href="withdraw.jsp">取款</a></li>
 <li><a href="query.jsp">查询</a></li>
 <li><a href="transfer.jsp">转账</a></li>
 <li><a href="changepasswd.jsp">改密码</a></li>

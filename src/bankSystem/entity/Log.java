@@ -15,9 +15,10 @@ public class Log implements Serializable  {
 	private double income;
 	private double expenditure;
 	private double balance;
+	private String accountType;
 	
 	public Log(Date time, String operation, String operator, String cardId,
-			String accountId, double income, double expenditure, double balance) {
+			String accountId, String accountType, double income, double expenditure, double balance) {
 		super();
 		this.time = time;
 		this.operation = operation;
@@ -27,6 +28,7 @@ public class Log implements Serializable  {
 		this.income = income;
 		this.expenditure = expenditure;
 		this.balance = balance;
+		this.accountType = accountType;
 	}
 
 	public Date getTime() {

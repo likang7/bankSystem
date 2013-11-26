@@ -84,6 +84,44 @@ public abstract class BusinessService {
 		return returnMsg;
 	}
 	
+	protected Account getAccountById(String id){
+		Account account = null;
+		try{		
+			account = ((VIPAccountDao)DaoFactory.getInstance().getDao("VIPAccountDao")).getAccount(id);
+			if(account == null){
+				account = ((AccountDao)DaoFactory.getInstance().getDao("AccountDao")).getAccount(id);
+				if(account == null){
+					account = ((EnterpriseAccountDao)DaoFactory.getInstance().
+							getDao("EnterpriseAccountDao")).getAccount(id);
+				}
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return account;
+	}
+	
+	protected boolean isUserIdUsernameAgreed(String userId, String username){
+		try{
+			if(((IndividualUserDao)DaoFactory.getInstance().getDao("IndividualUserDao")).
+					getIndividualUser(userId).getName().equals(username)){
+				return true;
+			}
+			else if(((VIPUserDao)DaoFactory.getInstance().getDao("VIPUserDao")).
+					getVIPUser(userId).getName().equals(username)){
+				return true;
+			}
+			else if(((EnterpriseUserDao)DaoFactory.getInstance().getDao("EnterpriseUserDao")).
+					getEnterpriseUser(userId).getName().equals(username)){
+				return true;
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+	
 	public abstract ReturnMsg deposit(String operator, String cardId, 
 			String password, double money);
 	
@@ -97,31 +135,8 @@ public abstract class BusinessService {
 			String password, String username, String outCardId, String outUsername,
 			double money);
 	
-	//普通个人用户以及企业用户均能继承使用
-	public ReturnMsg changePasswd(String operator, String userId, String cardId,
-			String oldPassword, String newPassword){
-		ReturnMsg cardMsg = checkCard(cardId, oldPassword, userId);
-		if(cardMsg.getStatus().equals(Status.ERROR))
-			return cardMsg;
-		
-		ReturnMsg returnMsg = new ReturnMsg();
-		Card card = cardDao.getCard(cardId, oldPassword, userId);
-		try{
-			AccountDao accountDao = (AccountDao)DaoFactory.getInstance().getDao("AccountDao");
-			Account account = accountDao.getAccount(card.getAccountId());
-			card.setPassword(newPassword);
-			
-			cardDao.updateCard(card);
-			Log log = new Log(new Date(), "changePasswd", operator, cardId, account.getId(), 0, 
-					0, account.getBalance());
-			logDao.insertLog(log);
-			cardMsg.setLog(log);
-			cardMsg.setStatus(Status.OK);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return returnMsg;
-	}
+	public abstract ReturnMsg changePasswd(String operator, String userId, String cardId,
+			String oldPassword, String newPassword);
 	
 	public abstract ReturnMsg closeAccount(String operator, String userId, String cardId,
 		 String password);

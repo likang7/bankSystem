@@ -27,6 +27,7 @@ public class EmployeeDaoImpl extends basicPersistence implements EmployeeDao {
 		if(getEmployee("root") == null){
 			insertEmployee(new Employee("root", "123456", Position.Administrator, "0001"));
 		}
+		save();
 	}
 	
 	protected void save() throws Exception{

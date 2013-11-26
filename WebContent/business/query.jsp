@@ -4,15 +4,40 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>查询</title>
+<title>
+<%
+String usertype = (String)session.getAttribute("usertype");
+String returnLink = "javascript:history.back(-1);";
+String title = null;
+if(usertype.equals("individual")){
+	title = "普通个人";
+	returnLink = "individualBusinessService.jsp";
+}
+else if(usertype.equals("vip")){
+	title = "VIP个人";
+	returnLink = "VIPBusinessService.jsp";
+}
+else if(usertype.equals("enterprise")){
+	title = "企业用户";
+	returnLink = "enterpriseBusinessService.jsp";
+}
+if(title != null)
+	out.print(title);
+%>
+业务：查询
+</title>
 <link rel="stylesheet" href="../css/style.css" />
 <link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<%session.setAttribute("businesstype", "query");%>
+<h2>
 <%
-session.setAttribute("businesstype", "query");
+if(title != null)
+	out.print(title);
 %>
-<h2>查询</h2>
+业务：查询
+</h2>
 <form method="post" action="../businessservice">
 	<ul>
 	    <li>
@@ -39,7 +64,7 @@ session.setAttribute("businesstype", "query");
     <p>
         <button type="submit" class="action">提交</button>
         <button type="reset" class="middle">重置</button>
-        <a class = "right" href="javascript:history.back(-1);">返回</a>
+        <a class = "right" href=<% out.print(returnLink); %>>返回</a>
     </p>
 </form>
 </body>

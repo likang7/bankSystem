@@ -12,6 +12,20 @@ public class VIPAccount extends Account implements Serializable  {
 	private boolean isFrozen;
 	private double accBalanceThisMonth;
 	private short accFailMonths;
+	private static final int openLimit = 1000000;
+	private static final int excessLimit = 100000;
+	
+	public static int getOpenlimit() {
+		return openLimit;
+	}
+
+	public static int getExcesslimit() {
+		return excessLimit;
+	}
+
+	public static boolean isBalanceEnough(double balance){
+		return balance >= openLimit;
+	}
 
 	public VIPAccount() {
 		// TODO Auto-generated constructor stub

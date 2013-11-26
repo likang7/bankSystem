@@ -59,7 +59,7 @@ public class LogInServlet extends HttpServlet {
 			request.getSession().setAttribute("sessionUsername", null);
 			request.setAttribute("msg", msg.getMsg());
 			request.setAttribute("returnLink", request.getHeader("referer"));
-			RequestDispatcher view = request.getRequestDispatcher("errorPage.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("result.jsp");
 			view.forward(request, response);
 		}
 	}
