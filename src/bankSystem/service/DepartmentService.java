@@ -85,15 +85,15 @@ public class DepartmentService {
 		return logs;
 	}
 	
-	public ArrayList<Employee> getSubordinates(String departmentId, String superiorId){
+	/*public ArrayList<Employee> getSubordinates(String departmentId, String superiorId){
 		ArrayList<Employee> subordinates = employeeDao.getEmployeesByDepartmentIdSuperiorId(departmentId, superiorId); 
 		return subordinates;
-	}
+	}*/
 	
-	public ArrayList<Employee> getSubordinatesByDepartmentId(String departmentId){
+	/*public ArrayList<Employee> getSubordinatesByDepartmentId(String departmentId){
 		ArrayList<Employee> subordinates = employeeDao.getEmployeesByDepartmentId(departmentId);
 		return subordinates;
-	}
+	}*/
 	
 	public ArrayList<Employee> getUserAndSubordinatesByUsername(String username){
 		Employee employee = employeeDao.getEmployee(username);
@@ -118,7 +118,7 @@ public class DepartmentService {
 	
 	public ArrayList<Log> getAllLogs(String departmentId, String superiorId, Date start, Date end){
 		ArrayList<Log> logs = new ArrayList<Log>();
-		ArrayList<Employee> subordinates = getSubordinates(departmentId, superiorId);
+		ArrayList<Employee> subordinates = employeeDao.getEmployeesByDepartmentIdSuperiorId(departmentId, superiorId); 
 		for(Employee subordinate : subordinates){
 			logs.addAll(getEmployeeLog(subordinate.getUsername(), start, end));
 		}

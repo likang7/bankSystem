@@ -17,12 +17,16 @@
     <servlet-class>bankSystem.servlet.businessServiceServlet</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>logquery</servlet-name>
-  	<servlet-class>bankSystem.servlet.logQueryServlet</servlet-class>
+    <servlet-name>logquery</servlet-name>
+    <servlet-class>bankSystem.servlet.logQueryServlet</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>departmentservice</servlet-name>
-  	<servlet-class>bankSystem.servlet.departmentServiceServlet</servlet-class>
+    <servlet-name>departmentservice</servlet-name>
+    <servlet-class>bankSystem.servlet.departmentServiceServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>logStatistics</servlet-name>
+  	<servlet-class>bankSystem.servlet.logStatisticsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>LogIn</servlet-name>
@@ -41,11 +45,15 @@
     <url-pattern>/businessservice</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>logquery</servlet-name>
-  	<url-pattern>/logquery</url-pattern>
+    <servlet-name>logquery</servlet-name>
+    <url-pattern>/logquery</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>departmentservice</servlet-name>
-  	<url-pattern>/departmentservice</url-pattern>
+    <servlet-name>departmentservice</servlet-name>
+    <url-pattern>/departmentservice</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>logStatistics</servlet-name>
+  	<url-pattern>/logstatistics</url-pattern>
   </servlet-mapping>
 </web-app>

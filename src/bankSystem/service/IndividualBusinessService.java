@@ -226,6 +226,11 @@ public class IndividualBusinessService extends BusinessService {
 		
 		Card card = cardDao.getCard(cardId, password);
 		Account account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			cardMsg.setStatus(Status.ERROR);
+			cardMsg.setMsg("This is not individual account.");
+			return cardMsg;
+		}
 		
 		ArrayList<Log> logs = logDao.getLogListByAccountIdDate(card.getAccountId(), start, end);
 		ReturnMsg returnMsg = new ReturnMsg();

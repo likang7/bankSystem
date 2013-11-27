@@ -9,11 +9,11 @@
 <%
 String returnLink = "javascript:history.back(-1);";
 %>
-<title>日志查询</title>
+<title>日志统计</title>
 </head>
 <body>
-<%session.setAttribute("businesstype", "logquery");%>
-<h2>日志查询</h2>
+<%session.setAttribute("businesstype", "logstatistics");%>
+<h2>日志统计</h2>
 <form method="post" action="departmentservice">
 <ul>
 <li>

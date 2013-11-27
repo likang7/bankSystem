@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +31,9 @@ public class departmentServiceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String resultPage = "result.jsp";
     private static final String logResultPage = "logtable.jsp";
+    private static final String logStatisticsPage = "logStatisticsTable.jsp";
+    private static final String departmentServicePage = "business/departmentService.jsp";
+    private static final String loginPage = "login.html";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -64,7 +70,7 @@ public class departmentServiceServlet extends HttpServlet {
 		String businesstype = (String)session.getAttribute("businesstype");
 		String operatorId = (String)session.getAttribute("sessionUsername");
 		if(operatorId == null){
-			response.sendRedirect("login.html");
+			response.sendRedirect(loginPage);
 			return;
 		}
 		
@@ -92,7 +98,7 @@ public class departmentServiceServlet extends HttpServlet {
 			}
 			else{
 				forwardHelper(request, response, "成功添加用户", 
-						"business/departmentService.jsp", resultPage, msg.getStatus().toString());
+						departmentServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("logquery")){
@@ -114,7 +120,7 @@ public class departmentServiceServlet extends HttpServlet {
 						logAsStr.append(log.toString()).append("<br>");
 					}
 					forwardHelper(request, response, logAsStr.toString(), 
-							"business/departmentService.jsp", logResultPage, Status.OK.toString());
+							departmentServicePage, logResultPage, Status.OK.toString());
 				}
 				else{
 					forwardHelper(request, response, "请至少选中一个雇员", request.getHeader("referer"), resultPage, Status.ERROR.toString());
@@ -123,8 +129,87 @@ public class departmentServiceServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		else if(businesstype.equals("statistics")){
-			
+		else if(businesstype.equals("logstatistics")){
+			String[] selectedEmployees = request.getParameterValues("selectedEmployee");  
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			request.setAttribute("start", (String)request.getParameter("startdate"));
+			request.setAttribute("end", (String)request.getParameter("enddate"));
+			String startDateStr = (String)request.getParameter("startdate") + " 00:00:00";
+			String endDateStr = (String)request.getParameter("enddate") + " 23:59:59";
+			try{
+				Date start = sdf.parse(startDateStr);
+				Date end = sdf.parse(endDateStr);
+				ArrayList<Log> logs = new ArrayList<Log>();
+				DepartmentService ds = new DepartmentService();
+				if(selectedEmployees != null){
+					for(int i = 0; i < selectedEmployees.length; i++){
+						logs.addAll(ds.getEmployeeLog(selectedEmployees[i], start, end));
+					}
+					
+					//local class for help
+					class Statistics{
+						public int frequency = 0;
+						public double out = 0;
+						public double in = 0;
+						@Override
+						public String toString() {
+							return "frequency=" + frequency
+									+ ", in=" + in + ", out=" + out;
+						}											
+					};
+					HashMap<String, Statistics> statisticsMap = new HashMap<String, Statistics>();
+					Statistics all = new Statistics();
+					for(Log log : logs){
+						Statistics statistics;
+						String operation = log.getOperation();
+						if(!statisticsMap.containsKey(operation))
+							statisticsMap.put(operation, new Statistics());
+						statistics = statisticsMap.get(operation);
+						statistics.frequency++;
+						statistics.out += log.getExpenditure();
+						statistics.in += log.getIncome();
+						
+						all.frequency++;
+						all.out += log.getExpenditure();
+						all.in += log.getIncome();
+					}
+					
+					
+					StringBuilder logAsStr = new StringBuilder();
+					Iterator<Entry<String, Statistics>> it = statisticsMap.entrySet().iterator();
+					while(it.hasNext()){
+						Entry<String, Statistics> pair = it.next();
+						String key = pair.getKey();
+						logAsStr.append("operation=" + key + ", ");
+						logAsStr.append(pair.getValue().toString());
+						logAsStr.append("<br>");
+					}
+					logAsStr.append("All=合计, " + all.toString() + "<br>");
+					
+					/*for(Log log : logs){
+						logAsStr.append(log.toString()).append("<br>");
+					}*/
+					forwardHelper(request, response, logAsStr.toString(), 
+							departmentServicePage, logStatisticsPage, Status.OK.toString());
+				}
+				else{
+					forwardHelper(request, response, "请至少选中一个雇员", request.getHeader("referer"), resultPage, Status.ERROR.toString());
+				}
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+		else if(businesstype.equals("deleteemployee")){
+			String username = (String)request.getParameter("username");
+			ReturnMsg msg = new DepartmentService().deleteEmployee(username);
+			if(msg.getStatus().equals(Status.ERROR)){
+				forwardHelper(request, response, msg.getMsg(), request.getHeader("referer"), 
+						resultPage, msg.getStatus().toString());
+			}
+			else{
+				forwardHelper(request, response, "成功删除雇员", 
+						departmentServicePage, resultPage, msg.getStatus().toString());
+			}
 		}
 	}
 

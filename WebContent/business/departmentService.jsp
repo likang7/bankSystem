@@ -22,11 +22,12 @@ session.setAttribute("usertype", "department");
 <div>
 <ul id = "navlist">
 <li><a href="../logquery">日志查询</a></li>
-<li><a href="">日志统计</a></li>
+<li><a href="../logstatistics">日志统计</a></li>
 <%
 String username = (String)session.getAttribute("sessionUsername");
-if(username.equals("root")){
+if(username != null && username.equals("root")){
 	out.print("<li><a href='addEmployee.jsp'>添加雇员</a></li>");
+	out.print("<li><a href='deleteEmployee.jsp'>删除雇员</a></li>");
 }
 %>
 <!---<li><a href="">删除雇员</a></li> --->

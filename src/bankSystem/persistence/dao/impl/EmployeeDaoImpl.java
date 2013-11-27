@@ -25,7 +25,7 @@ public class EmployeeDaoImpl extends basicPersistence implements EmployeeDao {
 		}
 		
 		if(getEmployee("root") == null){
-			insertEmployee(new Employee("root", "123456", Position.Administrator, null, null));
+			insertEmployee(new Employee("root", "123456", Position.Administrator, "root", "root"));
 		}
 		save();
 	}
@@ -97,7 +97,7 @@ public class EmployeeDaoImpl extends basicPersistence implements EmployeeDao {
 		// TODO Auto-generated method stub
 		ArrayList<Employee> results = new ArrayList<Employee>();
 		for(Employee e : employees){
-			if(e.getDepartmentId().equals(departmentId))
+			if(e.getDepartmentId() != null && e.getDepartmentId().equals(departmentId))
 				results.add(e);
 		}
 		return results;
