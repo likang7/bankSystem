@@ -6,7 +6,7 @@ import bankSystem.persistence.dao.iface.DepartmentDao;
 
 public class DepartmentDaoImpl extends basicPersistence implements DepartmentDao {
 	private ArrayList<Department> departments = new ArrayList<Department>();
-	private static String persistencePath = persistenceRoot + "/departments.obj";
+	private String persistencePath = persistenceRoot + "/departments.obj";
 
 	
 	public DepartmentDaoImpl() throws Exception{

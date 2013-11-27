@@ -10,7 +10,7 @@ import bankSystem.persistence.dao.iface.LogDao;
 public class LogDaoImpl extends basicPersistence implements LogDao {
 	private ArrayList<Log> logs = new ArrayList<Log>();
 	private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-	private static String persistencePath = persistenceRoot + "/logs.obj";
+	private  String persistencePath = persistenceRoot + "/logs.obj";
 	
 	public LogDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

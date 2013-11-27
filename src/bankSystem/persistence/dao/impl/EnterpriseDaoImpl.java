@@ -9,7 +9,7 @@ import bankSystem.persistence.dao.iface.EnterpriseDao;
 public class EnterpriseDaoImpl extends basicPersistence implements EnterpriseDao {
 	private ArrayList<Enterprise> enterprises = 
 			new ArrayList<Enterprise>();
-	private static String persistencePath = persistenceRoot + "/enterprises.obj";
+	private  String persistencePath = persistenceRoot + "/enterprises.obj";
 
 	public EnterpriseDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

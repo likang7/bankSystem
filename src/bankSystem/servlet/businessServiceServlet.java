@@ -26,7 +26,7 @@ import bankSystem.service.*;
 public class businessServiceServlet extends HttpServlet implements SingleThreadModel{
 	private static final long serialVersionUID = 1L;
     private static final String resultPage = "result.jsp";
-    private static final String logResultPage = "logtable.jsp";
+    private static final String logResultPage = "business/logtable.jsp";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -53,6 +53,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 	
 	protected void doIndividualBusiness(HttpServletRequest request, HttpServletResponse response,
 			String businesstype, String operatorId) throws ServletException, IOException {
+	    String individualServicePage = request.getContextPath() + "/service/individualBusinessService.jsp";
 		if(businesstype.equals("openaccount")){
 			String userId = (String)request.getParameter("userid");
 			String name = (String)request.getParameter("name");
@@ -66,7 +67,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回卡号
 				forwardHelper(request, response, "卡号是：" + msg.getMsg(), 
-						"business/individualBusinessService.jsp", resultPage, msg.getStatus().toString());
+						individualServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("deposit")){
@@ -80,7 +81,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/individualBusinessService.jsp", resultPage, msg.getStatus().toString());
+						individualServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else if(businesstype.equals("withdraw")){
@@ -94,7 +95,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/individualBusinessService.jsp", resultPage, msg.getStatus().toString());
+						individualServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("query")){
@@ -118,7 +119,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 						logAsStr.append(log.toString()).append("<br>");
 					}
 					forwardHelper(request, response, logAsStr.toString(), 
-							"business/individualBusinessService.jsp", logResultPage, msg.getStatus().toString());
+							individualServicePage, logResultPage, msg.getStatus().toString());
 				}
 			}catch (Exception e){
 				e.printStackTrace();
@@ -141,7 +142,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/individualBusinessService.jsp", resultPage, msg.getStatus().toString());
+						individualServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("changepasswd")){
@@ -161,7 +162,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "成功修改密码！", 
-						"business/individualBusinessService.jsp", resultPage, msg.getStatus().toString());
+						individualServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else if(businesstype.equals("closeaccount")){
@@ -175,17 +176,18 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "销户成功！", 
-						"business/individualBusinessService.jsp", resultPage, msg.getStatus().toString());
+						individualServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else{
 			forwardHelper(request, response, "未知的业务类型！", 
-					"business/individualBusinessService.jsp", resultPage, Status.ERROR.toString());
+					individualServicePage, resultPage, Status.ERROR.toString());
 		}
 	}
 	
 	protected void doVIPBusiness(HttpServletRequest request, HttpServletResponse response,
 			String businesstype, String operatorId) throws ServletException, IOException {
+		String vipServicePage = request.getContextPath() + "/service/VIPBusinessService.jsp";
 		if(businesstype.equals("openaccount")){
 			String userId = (String)request.getParameter("userid");
 			String name = (String)request.getParameter("name");
@@ -199,7 +201,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回卡号
 				forwardHelper(request, response, "卡号是：" + msg.getMsg(), 
-						"business/VIPBusinessService.jsp", resultPage, msg.getStatus().toString());
+						vipServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("deposit")){
@@ -213,7 +215,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/VIPBusinessService.jsp", resultPage, msg.getStatus().toString());
+						vipServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else if(businesstype.equals("withdraw")){
@@ -227,7 +229,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/VIPBusinessService.jsp", resultPage, msg.getStatus().toString());
+						vipServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("query")){
@@ -251,7 +253,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 						logAsStr.append(log.toString()).append("<br>");
 					}
 					forwardHelper(request, response, logAsStr.toString(), 
-							"business/VIPBusinessService.jsp", logResultPage, msg.getStatus().toString());
+							vipServicePage, logResultPage, msg.getStatus().toString());
 				}
 			}catch (Exception e){
 				e.printStackTrace();
@@ -274,7 +276,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/VIPBusinessService.jsp", resultPage, msg.getStatus().toString());
+						vipServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("changepasswd")){
@@ -294,7 +296,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "成功修改密码！", 
-						"business/VIPBusinessService.jsp", resultPage, msg.getStatus().toString());
+						vipServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else if(businesstype.equals("closeaccount")){
@@ -308,17 +310,18 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "销户成功！", 
-						"business/VIPBusinessService.jsp", resultPage, msg.getStatus().toString());
+						vipServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else{
 			forwardHelper(request, response, "未知的业务类型！", 
-					"business/VIPBusinessService.jsp", resultPage, Status.ERROR.toString());
+					vipServicePage, resultPage, Status.ERROR.toString());
 		}
 	}
 	
 	protected void doEnterpriseBusiness(HttpServletRequest request, HttpServletResponse response,
 			String businesstype, String operatorId) throws ServletException, IOException {
+		String enterpriseServicePage = request.getContextPath() + "/service/enterpriseBusinessService.jsp";
 		if(businesstype.equals("openaccount")){
 			String enterpriseId = (String)request.getParameter("enterpriseid");
 			String enterpriseName = (String)request.getParameter("enterprisename");
@@ -335,7 +338,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回卡号
 				forwardHelper(request, response, "卡号是：" + msg.getMsg(), 
-						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+						enterpriseServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("deposit")){
@@ -349,7 +352,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+						enterpriseServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else if(businesstype.equals("withdraw")){
@@ -363,7 +366,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功，返回余额
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+						enterpriseServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("query")){
@@ -387,7 +390,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 						logAsStr.append(log.toString()).append("<br>");
 					}
 					forwardHelper(request, response, logAsStr.toString(), 
-							"business/enterpriseBusinessService.jsp", logResultPage, msg.getStatus().toString());
+							enterpriseServicePage, logResultPage, msg.getStatus().toString());
 				}
 			}catch (Exception e){
 				e.printStackTrace();
@@ -410,7 +413,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功
 				forwardHelper(request, response, "余额为：" + msg.getMsg(), 
-						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+						enterpriseServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
 		else if(businesstype.equals("changepasswd")){
@@ -430,7 +433,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功
 				forwardHelper(request, response, "成功修改密码！", 
-						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+						enterpriseServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else if(businesstype.equals("closeaccount")){
@@ -444,7 +447,7 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功
 				forwardHelper(request, response, "销户成功！", 
-						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+						enterpriseServicePage, resultPage, msg.getStatus().toString());
 			}				
 		}
 		else if(businesstype.equals("addoperator")){
@@ -461,12 +464,12 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 			}
 			else{//成功
 				forwardHelper(request, response, "新增操作人成功，他的卡号是：" + msg.getMsg(), 
-						"business/enterpriseBusinessService.jsp", resultPage, msg.getStatus().toString());
+						enterpriseServicePage, resultPage, msg.getStatus().toString());
 			}	
 		}
 		else{
 			forwardHelper(request, response, "未知的业务类型！", 
-					"business/enterpriseBusinessService.jsp", resultPage, Status.ERROR.toString());
+					enterpriseServicePage, resultPage, Status.ERROR.toString());
 		}
 	}
 
@@ -481,10 +484,6 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 		String usertype = (String)session.getAttribute("usertype");
 		String businesstype = (String)session.getAttribute("businesstype");
 		String operatorId = (String)session.getAttribute("sessionUsername");
-		if(operatorId == null){
-			response.sendRedirect("login.html");
-			return;
-		}
 		
 		//处理个人用户业务
 		if(usertype.equals("individual")){
@@ -498,18 +497,4 @@ public class businessServiceServlet extends HttpServlet implements SingleThreadM
 		}
 
 	}
-	
-	public static void main(String args[]){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String dateAsString = "20131123";
-		try{
-			Date date = sdf.parse(dateAsString);
-			System.out.println(date);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		
-	}
-
 }

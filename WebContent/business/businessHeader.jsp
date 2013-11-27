@@ -1,27 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%request.setCharacterEncoding("utf-8"); %>
-<!DOCTYPE">
+<!DOCTYPE html">
 <html>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
+<link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" type="text/css" href="../css/bankSystem.css">
-<link rel="stylesheet" href="../css/style.css" />
-<link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
-<title>bank system</title>
-</head>
-<body>
-<h1>银行管理系统</h1>
-<ul id = "menu">
-<li><a href="individualBusinessService.jsp">普通个人业务</a></li> 
-<li><a href="VIPBusinessService.jsp">VIP个人业务</a></li> 
-<li><a href="enterpriseBusinessService.jsp">企业用户业务</a></li>
-<li><a href="departmentService.jsp">后台管理</a></li>
-<li><a href="../logoff">注销</a></li>
-</ul>
+<title>
 <%
-	String username = (String)session.getAttribute("sessionUsername");
-	out.print("<br><br>当前操作员：" + username); 
+String usertype = (String)session.getAttribute("usertype");
+String returnLink = "javascript:history.back(-1);";
+String title = null;
+if(usertype.equals("individual")){
+	title = "普通个人";
+	returnLink = request.getContextPath() + "/service/individualBusinessService.jsp";
+}
+else if(usertype.equals("vip")){
+	title = "VIP个人";
+	returnLink = request.getContextPath() + "/service/VIPBusinessService.jsp";
+}
+else if(usertype.equals("enterprise")){
+	title = "企业用户";
+	returnLink = request.getContextPath() + "/service/enterpriseBusinessService.jsp";
+}
+if(title != null)
+	out.print(title);
+
+request.setAttribute("returnLink", returnLink);
+request.setAttribute("title", title);
+request.setAttribute("usertype", usertype);
 %>
-</body>
-</html>
+业务：取款</title>
+</head>

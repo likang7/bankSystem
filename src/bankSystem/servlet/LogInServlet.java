@@ -34,6 +34,7 @@ public class LogInServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.print("logInServlet, doGet called.");
 	}
 
 	/**
@@ -43,16 +44,13 @@ public class LogInServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
+		System.out.print("logInServlet, doPost called.");
 		DepartmentService departmentService = new DepartmentService();
 		ReturnMsg msg = departmentService.logIn(username, password);
 		if(msg.getStatus().equals(Status.OK)){
 			HttpSession session = request.getSession();
 			session.setAttribute("sessionUsername", username);
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			out.println("log in successful£¬ redirecting...");
-			response.sendRedirect("welcome");
+			response.sendRedirect(request.getContextPath() + "/service/serviceHome.jsp");
 		}
 		else{
 			request.getSession().invalidate();

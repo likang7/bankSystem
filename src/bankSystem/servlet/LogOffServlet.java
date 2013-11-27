@@ -27,8 +27,9 @@ public class LogOffServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.getSession().setAttribute("sessionUsername", null);
 		request.getSession().invalidate();
-		response.sendRedirect("login.html");
+		response.sendRedirect(request.getContextPath() + "/management/login.jsp");
 	}
 
 	/**

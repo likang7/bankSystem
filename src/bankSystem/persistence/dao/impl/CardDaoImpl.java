@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 public class CardDaoImpl extends basicPersistence implements CardDao{
 	private ArrayList<Card> cards = new ArrayList<Card>();
-	private static String persistencePath = persistenceRoot + "/cards.obj";
+	private String persistencePath = persistenceRoot + "/cards.obj";
 	
 	public CardDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

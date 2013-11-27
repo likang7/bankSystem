@@ -6,7 +6,7 @@ import bankSystem.persistence.dao.iface.SequenceDao;
 
 public class SequenceDaoImpl extends basicPersistence implements SequenceDao {
 	private int currentId = 1000000;
-	private static String persistencePath = persistenceRoot + "/sequence.obj";
+	private  String persistencePath = persistenceRoot + "/sequence.obj";
 	
 	public SequenceDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

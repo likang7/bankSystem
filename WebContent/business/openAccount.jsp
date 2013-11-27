@@ -1,46 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>
-<%
-String usertype = (String)session.getAttribute("usertype");
-String returnLink = "javascript:history.back(-1);";
-String title = null;
-if(usertype.equals("individual")){
-	title = "普通个人";
-	returnLink = "individualBusinessService.jsp";
-}
-else if(usertype.equals("vip")){
-	title = "VIP个人";
-	returnLink = "VIPBusinessService.jsp";
-}
-else if(usertype.equals("enterprise")){
-	title = "企业用户";
-	returnLink = "enterpriseBusinessService.jsp";
-}
-if(title != null)
-	out.print(title);
-%>
-业务：开户
-</title>
-<link rel="stylesheet" href="../css/style.css" />
-<link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
-</head>
+<jsp:include page="businessHeader.jsp"/>
 <body>
 <%session.setAttribute("businesstype", "openaccount");%>
 <h2>
-<%
-if(title != null)
-	out.print(title);
-%>
-业务：开户
+<%= (String)request.getAttribute("title")%>业务：开户
 </h2>
-<form method="post" action="../businessservice">
+<form method="post" action="<%=request.getContextPath()%>/businessservice.action">
 	<ul>
-	<%
+	<%  String usertype = (String)request.getAttribute("usertype");
 		if(usertype.equals("enterprise")){
 			out.println("<li>");
 			out.println("<label for = 'enterpriseid'>企业编号： </label>");
@@ -98,7 +68,7 @@ if(title != null)
     <p>
         <button type="submit" class="action">提交</button>
         <button type="reset" class="middle">重置</button>
-        <a class = "right" href=<% out.print(returnLink); %>>返回</a>
+        <a class = "right" href="<%= (String)request.getAttribute("returnLink") %>">返回</a>
     </p>
 </form>
 </body>

@@ -74,6 +74,11 @@ public class IndividualBusinessService extends BusinessService {
 			
 			Card card = cardDao.getCard(cardId, password);
 			Account account = accountDao.getAccount(card.getAccountId());
+			if(account == null){
+				returnMsg.setStatus(Status.ERROR);
+				returnMsg.setMsg("This is not individual account");
+				return returnMsg;
+			}
 			account.setBalance(account.getBalance() + money);
 			accountDao.updateAccount(account);
 			
@@ -99,6 +104,11 @@ public class IndividualBusinessService extends BusinessService {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Card card = cardDao.getCard(cardId, password);
 		Account account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not individual account");
+			return returnMsg;
+		}
 		double balance = account.getBalance();
 		
 		if(balance - money < 0){
@@ -160,6 +170,11 @@ public class IndividualBusinessService extends BusinessService {
 		String outAccountId = outCard.getAccountId();
 		String inAccountId = inCard.getAccountId();
 		Account outAccount = accountDao.getAccount(outAccountId);
+		if(outAccount == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not individual account");
+			return returnMsg;
+		}
 		double outBalance = outAccount.getBalance();
 		// check balance
 		if(outBalance < money){
@@ -254,6 +269,11 @@ public class IndividualBusinessService extends BusinessService {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Card card = cardDao.getCard(cardId, password);
 		Account account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not individual account");
+			return returnMsg;
+		}
 		String accountId = account.getId();
 		double balance = account.getBalance();
 		if(balance > 0.01){
@@ -287,6 +307,11 @@ public class IndividualBusinessService extends BusinessService {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Card card = cardDao.getCard(cardId, oldPassword, userId);
 		Account account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not individual account");
+			return returnMsg;
+		}
 		card.setPassword(newPassword);
 		
 		cardDao.updateCard(card);

@@ -5,16 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="css/style.css" />
-<%
-String returnLink = "javascript:history.back(-1);";
-%>
-<title>日志查询</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
+<title>日志统计</title>
 </head>
 <body>
-<%session.setAttribute("businesstype", "logquery");%>
-<h2>日志查询</h2>
-<form method="post" action="departmentservice">
+<%session.setAttribute("businesstype", "logstatistics");%>
+<h2>日志统计</h2>
+<form method="post" action="<%=request.getContextPath()%>/departmentservice.action">
 <ul>
 <li>
 <jsp:include page="employeeTable.jsp"/>
@@ -31,7 +28,7 @@ String returnLink = "javascript:history.back(-1);";
     <p>
         <button type="submit" class="action">提交</button>
         <button type="reset" class="middle">重置</button>
-        <a class = "right" href=<% out.print(returnLink); %>>返回</a>
+        <a class = "right" href="<%=request.getContextPath()%>/service/departmentService.jsp">返回</a>
     </p>
 </form>
 </body>

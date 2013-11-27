@@ -16,7 +16,7 @@ import bankSystem.persistence.dao.iface.EmployeeDao;
  */
 public class EmployeeDaoImpl extends basicPersistence implements EmployeeDao {
 	private ArrayList<Employee> employees = new ArrayList<Employee>();
-	private static String persistencePath = persistenceRoot + "/employees.obj";
+	private  String persistencePath = persistenceRoot + "/employees.obj";
 
 	public EmployeeDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

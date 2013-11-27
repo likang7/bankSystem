@@ -4,31 +4,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="css/style.css" />
-<title>统计结果</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
+<title>查询结果</title>
 </head>
 <body>
 <!-- Table goes in the document BODY -->
 <center>
-<h1><font color="green">统计结果</font></h1>
+<h1><font color="green">查询结果</font></h1>
 <table class="gridtable">
-<%
-//输出起始时间以及结束时间
-String start = (String)request.getAttribute("start");
-String end = (String)request.getAttribute("end");
-out.print("<p>日期：" + start +  " --- ");
-out.print("" + end +  " </p>");
-%>
 <tr>
+	<th>时间</th>
 	<th>操作类型</th>
-	<th>次数</th>
+	<th>操作人</th>
+	<th>卡号</th>
+	<th>账号</th>
 	<th>收入</th>
 	<th>支出</th>
+	<th>余额</th>
 </tr>
 <%
 	String msg = (String)request.getAttribute("msg");
-	String[] logs = msg.split("<br>");
 	if(msg != null && !msg.equals("")){
+		String[] logs = msg.split("<br>");
 		for(String log : logs){
 			out.print("<tr>");
 			String[] pairs = log.split(",");

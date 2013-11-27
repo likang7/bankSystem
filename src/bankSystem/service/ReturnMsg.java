@@ -10,7 +10,6 @@ public class ReturnMsg {
 	private String msg;
 	private Log log;
 	private ArrayList<Log> logs;
-	private ArrayList<Employee> employees;
 	
 	public ReturnMsg() {
 		super();

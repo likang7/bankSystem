@@ -30,10 +30,8 @@ import bankSystem.service.Status;
 public class departmentServiceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String resultPage = "result.jsp";
-    private static final String logResultPage = "logtable.jsp";
-    private static final String logStatisticsPage = "logStatisticsTable.jsp";
-    private static final String departmentServicePage = "business/departmentService.jsp";
-    private static final String loginPage = "login.html";
+    private static final String logResultPage = "/business/logtable.jsp";
+    private static final String logStatisticsPage = "/management/logStatisticsTable.jsp";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -69,11 +67,8 @@ public class departmentServiceServlet extends HttpServlet {
 		String usertype = (String)session.getAttribute("usertype");
 		String businesstype = (String)session.getAttribute("businesstype");
 		String operatorId = (String)session.getAttribute("sessionUsername");
-		if(operatorId == null){
-			response.sendRedirect(loginPage);
-			return;
-		}
-		
+
+		String departmentServicePage = request.getContextPath() + "/service/departmentService.jsp";
 		if(businesstype.equals("addemployee")){
 			String username = (String)request.getParameter("username");
 			String password = (String)request.getParameter("password");
@@ -211,6 +206,23 @@ public class departmentServiceServlet extends HttpServlet {
 						departmentServicePage, resultPage, msg.getStatus().toString());
 			}
 		}
+		/*else if(businesstype.equals("login")){
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			ReturnMsg msg = new DepartmentService().logIn(username, password);
+			if(msg.getStatus().equals(Status.OK)){
+				session.setAttribute("sessionUsername", username);
+				response.sendRedirect(request.getContextPath() + "/service/serviceHome.jsp");
+			}
+			else{
+				request.getSession().invalidate();
+				request.getSession().setAttribute("sessionUsername", null);
+				request.setAttribute("msg", msg.getMsg());
+				request.setAttribute("returnLink", request.getHeader("referer"));
+				RequestDispatcher view = request.getRequestDispatcher("result.jsp");
+				view.forward(request, response);
+			}
+		}*/
 	}
 
 }

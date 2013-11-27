@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 public class AccountDaoImpl extends basicPersistence implements AccountDao{
 	private ArrayList<Account> accounts = new ArrayList<Account>();
-	private static String persistencePath = persistenceRoot + "/accounts.obj";
+	private String persistencePath = persistenceRoot + "/accounts.obj";
 	
 	public AccountDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

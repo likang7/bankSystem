@@ -87,6 +87,11 @@ public class VIPBusinessService extends BusinessService {
 			
 			Card card = cardDao.getCard(cardId, password);
 			VIPAccount account = accountDao.getAccount(card.getAccountId());
+			if(account == null){
+				returnMsg.setStatus(Status.ERROR);
+				returnMsg.setMsg("This is not VIP account");
+				return returnMsg;
+			}
 			account.setBalance(account.getBalance() + money);
 			accountDao.updateAccount(account);
 			
@@ -112,7 +117,18 @@ public class VIPBusinessService extends BusinessService {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Card card = cardDao.getCard(cardId, password);
 		VIPAccount account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not VIP account");
+			return returnMsg;
+		}
 		double balance = account.getBalance();
+		
+		if(account.isFrozen() == true){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This card has benn frozen");
+			return returnMsg;
+		}
 		
 		if(balance + VIPAccount.getExcesslimit() < money){
 			returnMsg.setStatus(Status.ERROR);
@@ -198,6 +214,18 @@ public class VIPBusinessService extends BusinessService {
 		String outAccountId = outCard.getAccountId();
 		String inAccountId = inCard.getAccountId();
 		VIPAccount outAccount = accountDao.getAccount(outAccountId);
+		if(outAccount == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not VIP account");
+			return returnMsg;
+		}
+		
+		if(outAccount.isFrozen() == true){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This card has benn frozen");
+			return returnMsg;
+		}
+		
 		double outBalance = outAccount.getBalance();
 		// check balance
 		if(outBalance + VIPAccount.getExcesslimit() < money){
@@ -261,6 +289,11 @@ public class VIPBusinessService extends BusinessService {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Card card = cardDao.getCard(cardId, password);
 		VIPAccount account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not VIP account");
+			return returnMsg;
+		}
 		String accountId = account.getId();
 		double balance = account.getBalance();
 		if(balance > 0.01){
@@ -301,6 +334,11 @@ public class VIPBusinessService extends BusinessService {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Card card = cardDao.getCard(cardId, oldPassword, userId);
 		VIPAccount account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not VIP account");
+			return returnMsg;
+		}
 		card.setPassword(newPassword);
 		
 		cardDao.updateCard(card);

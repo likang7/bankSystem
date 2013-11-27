@@ -107,6 +107,11 @@ public class EnterpriseBusinessService extends BusinessService {
 			
 			Card card = cardDao.getCard(cardId, password);
 			EnterpriseAccount account = accountDao.getAccount(card.getAccountId());
+			if(account == null){
+				returnMsg.setStatus(Status.ERROR);
+				returnMsg.setMsg("This is not enterprise account");
+				return returnMsg;
+			}
 			account.setBalance(account.getBalance() + money);
 			accountDao.updateAccount(account);
 			
@@ -133,6 +138,11 @@ public class EnterpriseBusinessService extends BusinessService {
 		Card card = cardDao.getCard(cardId, password);
 
 		EnterpriseAccount account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not enterprise account");
+			return returnMsg;
+		}
 		String enterpriseId = account.getEnterpriseId();
 		double totalBalance = this.getEnterpriseBalance(enterpriseId);
 		if(totalBalance - money < Enterprise.getBalanceLimit()){
@@ -225,7 +235,11 @@ public class EnterpriseBusinessService extends BusinessService {
 		String outAccountId = outCard.getAccountId();
 		String inAccountId = inCard.getAccountId();
 		EnterpriseAccount outAccount = accountDao.getAccount(outAccountId);
-		
+		if(outAccount == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not enterprise account");
+			return returnMsg;
+		}
 		// check enterprise balance
 		double totalBalance = this.getEnterpriseBalance(outAccount.getEnterpriseId());
 		if(totalBalance - money < Enterprise.getBalanceLimit()){
@@ -298,6 +312,11 @@ public class EnterpriseBusinessService extends BusinessService {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Card card = cardDao.getCard(cardId, password);
 		EnterpriseAccount account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not enterprise account");
+			return returnMsg;
+		}
 		String accountId = account.getId();
 		double balance = account.getBalance();
 		if(balance > 0.01){
@@ -338,6 +357,11 @@ public class EnterpriseBusinessService extends BusinessService {
 		ReturnMsg returnMsg = new ReturnMsg();
 		Card card = cardDao.getCard(cardId, oldPassword, userId);
 		EnterpriseAccount account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not enterprise account");
+			return returnMsg;
+		}
 		card.setPassword(newPassword);
 		
 		cardDao.updateCard(card);
@@ -365,6 +389,11 @@ public class EnterpriseBusinessService extends BusinessService {
 		
 		Card card = cardDao.getCard(cardId, password);
 		EnterpriseAccount account = accountDao.getAccount(card.getAccountId());
+		if(account == null){
+			returnMsg.setStatus(Status.ERROR);
+			returnMsg.setMsg("This is not enterprise account");
+			return returnMsg;
+		}
 		String accountId = account.getId();
 		String enterpriseId = account.getEnterpriseId();
 		

@@ -8,7 +8,7 @@ import bankSystem.persistence.dao.iface.IndividualUserDao;
 
 public class IndividualUserDaoImpl extends basicPersistence implements IndividualUserDao {
 	private ArrayList<IndividualUser> users = new ArrayList<IndividualUser>();
-	private static String persistencePath = persistenceRoot + "/individualUsers.obj";
+	private  String persistencePath = persistenceRoot + "/individualUsers.obj";
 	
 	public IndividualUserDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

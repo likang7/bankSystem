@@ -8,7 +8,7 @@ import bankSystem.persistence.dao.iface.VIPUserDao;
 
 public class VIPUserDaoImpl extends basicPersistence implements VIPUserDao {
 	private ArrayList<VIPUser> users = new ArrayList<VIPUser>();
-	private static String persistencePath = persistenceRoot + "/VIPUsers.obj";
+	private  String persistencePath = persistenceRoot + "/VIPUsers.obj";
 	
 	public VIPUserDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

@@ -10,7 +10,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public abstract class basicPersistence {
-	protected static String persistenceRoot = new String();
+	protected String persistenceRoot = new String();
 	
 	public basicPersistence(){
 		persistenceRoot = this.getClass().getClassLoader().getResource("/").getPath();

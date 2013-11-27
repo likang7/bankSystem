@@ -10,7 +10,7 @@ import bankSystem.persistence.dao.iface.VIPAccountDao;
 public class VIPAccountDaoImpl extends basicPersistence implements VIPAccountDao {
 	private ArrayList<VIPAccount> accounts = 
 			new ArrayList<VIPAccount>();
-	private static String persistencePath = persistenceRoot + "/VIPAccounts.obj";
+	private  String persistencePath = persistenceRoot + "/VIPAccounts.obj";
 	
 	public VIPAccountDaoImpl() throws Exception{
 		ArrayList<Object> objects = readObject(persistenceRoot, persistencePath);

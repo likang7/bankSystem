@@ -38,10 +38,6 @@ public class logStatisticsServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8"); 
 		HttpSession session = request.getSession();
 		String operatorId = (String)session.getAttribute("sessionUsername");
-		if(operatorId == null){
-			response.sendRedirect("login.html");
-			return;
-		}
 		
 		ArrayList<Employee> employees = new DepartmentService().getUserAndSubordinatesByUsername(operatorId);
 		StringBuilder results = new StringBuilder();
@@ -49,7 +45,7 @@ public class logStatisticsServlet extends HttpServlet {
 			results.append(employee.toString()).append("<br>");
 		}
 		request.setAttribute("employees", results.toString());
-		RequestDispatcher view = request.getRequestDispatcher("business/logStatistics.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("management/logStatistics.jsp");
 		view.forward(request, response);
 	}
 
