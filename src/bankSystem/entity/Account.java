@@ -28,6 +28,23 @@ public class Account implements Serializable {
 		this.balance = balance;
 		this.openDate = openDate;
 	}
+	
+	public Account(String id, String type, double balance, Date openDate) {
+		super();
+		AccountType accountType = AccountType.Current;
+		String strType =  type;
+		if(strType.equalsIgnoreCase("Current")){
+			accountType = AccountType.Current;
+		}
+		else if(strType.equalsIgnoreCase("Fixed")){
+			accountType = AccountType.Fixed;
+		}
+		this.id = id;
+		this.type = accountType;
+		this.balance = balance;
+		this.openDate = openDate;
+	}
+	
 
 	public String getId() {
 		return id;

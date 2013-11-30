@@ -20,7 +20,7 @@ public class DepartmentDaoImpl extends basicPersistence implements DepartmentDao
 			insertDepartment(new Department("1", "individual"));
 		}
 		if(getDepartment("2") == null){
-			insertDepartment(new Department("2", "vip"));
+			insertDepartment(new Department("2", "enterprise"));
 		}
 	}
 	

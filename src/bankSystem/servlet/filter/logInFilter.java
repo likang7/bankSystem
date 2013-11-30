@@ -1,4 +1,4 @@
-package bankSystem.filter;
+package bankSystem.servlet.filter;
 
 import java.io.IOException;
 

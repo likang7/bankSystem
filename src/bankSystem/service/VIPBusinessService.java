@@ -1,5 +1,6 @@
 package bankSystem.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -348,6 +349,84 @@ public class VIPBusinessService extends BusinessService {
 		returnMsg.setLog(log);
 		returnMsg.setStatus(Status.OK);
 		return returnMsg;
+	}
+	
+	public void checkPaidback(){
+		ArrayList<VIPAccount> accounts = accountDao.getAllAccounts();
+		for(VIPAccount account : accounts){
+			//check has paid back money
+			if(account.getBalance() < 0){
+				if(account.isFrozen()){
+					continue;
+				}
+				Date excessStart = account.getExcessStart();
+				Date now = new Date();
+				if(excessStart == null){
+					account.setExcessStart(now);
+				}
+				else{
+					long days = (now.getTime() - excessStart.getTime()) / (24*60*60*1000); 
+					if(days >= 30){
+						account.setFrozen(true);
+						accountDao.updateAccount(account);
+					}
+				}
+			}
+			else{
+				if(account.getExcessStart() == null){
+					continue;
+				}
+				account.setExcessStart(null);
+				account.setFrozen(false);
+				accountDao.updateAccount(account);
+			}
+		}
+	}
+	
+	public void checkBalance(){
+		ArrayList<VIPAccount> accounts = accountDao.getAllAccounts();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd");
+		
+		Date now = new Date();
+		String day = sdf.format(now);
+		for(VIPAccount account : accounts){
+			Date openDate = account.getOpenDate();
+			long days = (now.getTime() - openDate.getTime()) / (24*60*60*1000); 
+			if(days < 30){
+				continue;
+			}
+			// every month's 1st check
+			double totBalance = account.getAccBalanceThisMonth();
+			if(day.equals("01")){
+				short failMonths = account.getAccFailMonths();
+				if(totBalance < 100000 * 30){
+					failMonths++;
+					if(failMonths >= 2){
+						account.setBalance(account.getBalance() - 1000);
+						Log log = new Log(new Date(), "managementFee", "root", "system", account.getId(), 
+								accountType, 0,	1000, account.getBalance());
+						logDao.insertLog(log);
+					}
+				}
+				else{
+					failMonths = 0;
+				}
+				account.setAccFailMonths(failMonths);
+				account.setAccBalanceThisMonth(account.getBalance());
+			}
+			else{
+				account.setAccBalanceThisMonth(totBalance + account.getBalance());
+			}
+			accountDao.updateAccount(account);
+		}
+	}
+	
+	public static void main(String[] args){
+		SimpleDateFormat sdf = new SimpleDateFormat("dd");
+		
+		Date now = new Date();
+		String str = sdf.format(now);
+		System.out.println(str);
 	}
 	
 }

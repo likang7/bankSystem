@@ -1,5 +1,7 @@
 package bankSystem.persistence.dao.iface;
 
+import java.util.ArrayList;
+
 import bankSystem.entity.VIPAccount;
 
 public interface VIPAccountDao {
@@ -9,5 +11,5 @@ public interface VIPAccountDao {
 	void deleteAccount(String id);
 	void updateAccount(VIPAccount account);
 
-	void checkAccount();
+	ArrayList<VIPAccount> getAllAccounts();
 }

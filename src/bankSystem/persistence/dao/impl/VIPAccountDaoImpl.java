@@ -72,9 +72,10 @@ public class VIPAccountDaoImpl extends basicPersistence implements VIPAccountDao
 	}
 
 	@Override
-	public void checkAccount() {
+	public ArrayList<VIPAccount> getAllAccounts() {
 		// TODO Auto-generated method stub
-
+		return (ArrayList<VIPAccount>)accounts.clone();
 	}
+
 
 }
