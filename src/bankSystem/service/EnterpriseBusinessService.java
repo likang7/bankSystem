@@ -72,8 +72,8 @@ public class EnterpriseBusinessService extends BusinessService {
 			return returnMsg;
 		}
 		
-		String cardId = sequenceDao.getNextId();
-		String accountId = sequenceDao.getNextId();
+		String cardId = String.valueOf(sequenceDao.getNextId("all"));
+		String accountId = String.valueOf(sequenceDao.getNextId("all"));
 		Card card = new Card(cardId, password, accountId, userId);
 		
 		AccountType type = super.stringToAccountType(accountType);
@@ -412,7 +412,7 @@ public class EnterpriseBusinessService extends BusinessService {
 		}
 		
 		
-		String newCardId = sequenceDao.getNextId();
+		String newCardId = String.valueOf(sequenceDao.getNextId("all"));
 		Card newCard = new Card(newCardId, newpassword, accountId, newUserId);
 		
 		Date date = new Date();

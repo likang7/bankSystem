@@ -16,6 +16,13 @@ public class EnterpriseAccount extends Account implements Serializable  {
 		// TODO Auto-generated constructor stub
 		this.enterpriseId = enterpriseId;
 	}
+	
+	public EnterpriseAccount(String id, String type, double balance, Date openDate,
+			String enterpriseId) {
+		super(id, type, balance, openDate);
+		// TODO Auto-generated constructor stub
+		this.enterpriseId = enterpriseId;
+	}
 
 	public String getEnterpriseId() {
 		return enterpriseId;

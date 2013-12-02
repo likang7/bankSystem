@@ -53,8 +53,8 @@ public class VIPBusinessService extends BusinessService {
 			user = new VIPUser(userId, name);
 			userDao.insertUser(user);
 		}
-		String cardId = sequenceDao.getNextId();
-		String accountId = sequenceDao.getNextId();
+		String cardId = String.valueOf(sequenceDao.getNextId("all"));
+		String accountId = String.valueOf(sequenceDao.getNextId("all"));
 		Card card = new Card(cardId, password, accountId, userId);
 		
 		AccountType type = super.stringToAccountType(accountType);
@@ -376,7 +376,7 @@ public class VIPBusinessService extends BusinessService {
 				if(account.getExcessStart() == null){
 					continue;
 				}
-				account.setExcessStart(null);
+				account.setExcessStart(new Date());
 				account.setFrozen(false);
 				accountDao.updateAccount(account);
 			}

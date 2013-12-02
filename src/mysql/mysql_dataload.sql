@@ -8,4 +8,4 @@ INSERT INTO Employee VALUES('supervisor2', '123456', 'Supervisor', '2', 'root');
 INSERT INTO Employee VALUES('manager1', '123456', 'Manager', '1', 'supervisor1');
 INSERT INTO Employee VALUES('operator1', '123456', 'Operator', '1', 'manager1');
 
-INSERT INTO Sequence VALUES(1000);
+INSERT INTO Sequence VALUES(1000, 'all');

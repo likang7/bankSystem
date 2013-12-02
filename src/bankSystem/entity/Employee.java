@@ -25,6 +25,37 @@ public class Employee implements Serializable  {
 		this.superiorId = superiorId;
 	}
 
+	public Employee(String username, String password, String strPosition,
+			String departmentId, String superiorId) {
+		// TODO Auto-generated constructor stub
+		super();
+		Position p = Position.Operator;
+		try{
+			if(strPosition.equalsIgnoreCase(Position.Administrator.toString())){
+				p = Position.Administrator;
+			}
+			else if(strPosition.equalsIgnoreCase(Position.Supervisor.toString())){
+				p = Position.Supervisor;
+			}
+			else if(strPosition.equalsIgnoreCase(Position.Manager.toString())){
+				p = Position.Manager;
+			}
+			else if(strPosition.equalsIgnoreCase(Position.Operator.toString())){
+				p = Position.Operator;
+			}
+			else {
+				throw new Exception();
+			}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		this.username = username;
+		this.password = password;
+		this.position = p;
+		this.departmentId = departmentId;
+		this.superiorId = superiorId;
+	}
+
 	public String getUsername() {
 		return username;
 	}

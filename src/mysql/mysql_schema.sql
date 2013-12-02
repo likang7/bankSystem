@@ -49,7 +49,7 @@ create table if not exists Enterprise (
 
 create table if not exists EnterpriseAccount (
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
-	type VARCHAR(20) NOT NULL,
+	`type` VARCHAR(20) NOT NULL,
 	balance DECIMAL NOT NULL,
 	openDate TIMESTAMP,
 	enterpriseId VARCHAR(20) DEFAULT NULL
@@ -58,7 +58,8 @@ create table if not exists EnterpriseAccount (
 create table if not exists EnterpriseUser (
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
 	name VARCHAR(20) DEFAULT NULL,
-	enterpriseId VARCHAR(20) DEFAULT NULL
+	enterpriseId VARCHAR(20) DEFAULT NULL,
+	isSuper BOOLEAN DEFAULT FALSE
 )DEFAULT CHARSET=latin1;
 
 create table if not exists IndividualUser (
@@ -72,13 +73,15 @@ create table if not exists `Log` (
 	`operator` VARCHAR(20) DEFAULT NULL,
 	cardId VARCHAR(20) DEFAULT NULL,
 	accountId VARCHAR(20) DEFAULT NULL,
+	accountType VARCHAR(20) DEFAULT NULL,
 	income DECIMAL DEFAULT 0,
 	expenditure DECIMAL DEFAULT 0,
 	balance DECIMAL DEFAULT 0
 )DEFAULT CHARSET=latin1;
 
 create table if not exists `Sequence` (
-	nextid int NOT NULL DEFAULT 1000000
+	nextid int NOT NULL DEFAULT 1000000,
+	name VARCHAR(20) NOT NULL PRIMARY KEY
 )DEFAULT CHARSET=latin1;
 
 create table if not exists VIPACCount(
@@ -96,8 +99,3 @@ create table if not exists VIPUser(
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
 	name VARCHAR(20) DEFAULT NULL	
 )DEFAULT CHARSET=latin1;
-
-
-
-
-

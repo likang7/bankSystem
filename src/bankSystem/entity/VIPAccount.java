@@ -30,7 +30,7 @@ public class VIPAccount extends Account implements Serializable  {
 	public VIPAccount() {
 		// TODO Auto-generated constructor stub
 		super();
-		excessStart = null;
+		excessStart = new Date();
 		isFrozen = false;
 		accBalanceThisMonth = 0.0;
 		accFailMonths = 0;
@@ -39,10 +39,29 @@ public class VIPAccount extends Account implements Serializable  {
 	public VIPAccount(String id, AccountType type, double balance, Date openDate) {
 		super(id, type, balance, openDate);
 		// TODO Auto-generated constructor stub
-		excessStart = null;
+		excessStart = new Date();
 		isFrozen = false;
 		accBalanceThisMonth = 0.0;
 		accFailMonths = 0;
+	}
+	
+	public VIPAccount(String id, String type, double balance, Date openDate) {
+		super(id, type, balance, openDate);
+		// TODO Auto-generated constructor stub
+		excessStart = new Date();
+		isFrozen = false;
+		accBalanceThisMonth = 0.0;
+		accFailMonths = 0;
+	}
+	
+	public VIPAccount(String id, String type, double balance, Date openDate, Date excessStart,
+			boolean isFrozen, double accBalanceThisMonth, short accFailMonths) {
+		super(id, type, balance, openDate);
+		// TODO Auto-generated constructor stub
+		this.excessStart =  excessStart;
+		this.isFrozen = isFrozen;
+		this.accBalanceThisMonth = accBalanceThisMonth;
+		this.accFailMonths = accFailMonths;
 	}
 
 	public Date getExcessStart() {

@@ -5,6 +5,7 @@ package bankSystem.persistence.dao.sqlimpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import bankSystem.entity.Account;
 import bankSystem.entity.AccountType;
@@ -86,7 +87,7 @@ public class AccountDaoSqlImpl implements AccountDao {
 		public Object mapRow(ResultSet rs) throws SQLException {
 			// TODO Auto-generated method stub
 			Account account = new Account(rs.getString("id"), rs.getString("type"),
-					rs.getDouble("balance") ,rs.getDate("openDate"));
+					rs.getDouble("balance") , new Date(rs.getTimestamp("openDate").getTime()));
 			return account;
 		}
 		

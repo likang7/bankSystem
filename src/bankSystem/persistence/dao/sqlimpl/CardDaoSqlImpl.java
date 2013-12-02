@@ -57,7 +57,7 @@ public class CardDaoSqlImpl implements CardDao {
 	public ArrayList<Card> getCardsByAccountId(String accountId) {
 		// TODO Auto-generated method stub
 		try{
-			String sql = "select * from card where accountId";
+			String sql = "select * from card where accountId=?";
 			Object[] args = new Object[] {accountId};
 			List<Object> cardsList = daoTemplate.query(sql, args, new CardRowMapper());
 			ArrayList<Card> cards = new ArrayList<Card>();

@@ -5,7 +5,7 @@
 <jsp:include page="businessHeader.jsp"/>
 <body>
 <%
-session.setAttribute("businesstype", "closeaccount.action");
+session.setAttribute("businesstype", "closeaccount");
 %>
 <h2>
 <%= (String)request.getAttribute("title")%>业务：销户

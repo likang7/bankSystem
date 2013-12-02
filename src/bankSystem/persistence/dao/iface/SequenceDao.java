@@ -1,6 +1,7 @@
 package bankSystem.persistence.dao.iface;
 
+import bankSystem.entity.Sequence;
+
 public interface SequenceDao {
-	String getNextId();
-	void updateNextId(String id);
+	int getNextId(String name);
 }

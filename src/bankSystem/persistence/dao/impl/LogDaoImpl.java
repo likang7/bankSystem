@@ -47,7 +47,7 @@ public class LogDaoImpl extends basicPersistence implements LogDao {
 		return aLogs;
 	}
 
-	@Override
+	/*@Override
 	public ArrayList<Log> getLogListByDate(Date date) {
 		// TODO Auto-generated method stub
 		ArrayList<Log> aLogs = new ArrayList<Log>();
@@ -59,7 +59,7 @@ public class LogDaoImpl extends basicPersistence implements LogDao {
 				aLogs.add(log);
 		}
 		return aLogs;
-	}
+	}*/
 
 	@Override
 	public ArrayList<Log> getLogListByDate(Date start, Date end) {
@@ -74,7 +74,7 @@ public class LogDaoImpl extends basicPersistence implements LogDao {
 		return aLogs;
 	}
 
-	@Override
+	/*@Override
 	public ArrayList<Log> getLogListByOperatorDate(String operator, Date date) {
 		// TODO Auto-generated method stub
 		ArrayList<Log> aLogs = new ArrayList<Log>();
@@ -86,7 +86,7 @@ public class LogDaoImpl extends basicPersistence implements LogDao {
 				aLogs.add(log);
 		}
 		return aLogs;
-	}
+	}*/
 
 	@Override
 	public ArrayList<Log> getLogListByOperatorDate(String operator, Date start,
@@ -103,7 +103,7 @@ public class LogDaoImpl extends basicPersistence implements LogDao {
 		return aLogs;
 	}
 
-	@Override
+	/*@Override
 	public ArrayList<Log> getLogListByAccountIdDate(String accountId, Date date) {
 		// TODO Auto-generated method stub
 		ArrayList<Log> aLogs = new ArrayList<Log>();
@@ -115,7 +115,7 @@ public class LogDaoImpl extends basicPersistence implements LogDao {
 				aLogs.add(log);
 		}
 		return aLogs;
-	}
+	}*/
 
 	@Override
 	public ArrayList<Log> getLogListByAccountIdDate(String accountId,

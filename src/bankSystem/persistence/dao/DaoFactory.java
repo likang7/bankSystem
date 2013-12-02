@@ -7,7 +7,8 @@ import java.util.Properties;
 public class DaoFactory {
 	private static DaoFactory instance = null;
 	private static Properties pro;
-	private static String proFile="properties/dao.properties";
+	//private static String proFile="properties/dao.properties";
+	private static String proFile="properties/dao_sql.properties";
 	
 	public static DaoFactory getInstance(){
 		if(instance == null)

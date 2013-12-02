@@ -39,8 +39,8 @@ public class IndividualBusinessService extends BusinessService {
 			userDao.insertUser(user);
 		}
 		
-		String cardId = sequenceDao.getNextId();
-		String accountId = sequenceDao.getNextId();
+		String cardId = String.valueOf(sequenceDao.getNextId("all"));
+		String accountId = String.valueOf(sequenceDao.getNextId("all"));
 		Card card = new Card(cardId, password, accountId, userId);
 		
 		AccountType type = super.stringToAccountType(accountType);
