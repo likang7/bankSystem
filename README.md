@@ -13,8 +13,8 @@ JDK 1.6 +
 
 Installation
 ============
-Start the tomcat server at localhost and visit it through: http://localhost:8080/bankSystem/index.html.
+Start the tomcat server at localhost and visit it through: <http://localhost:8080/bankSystem/index.html>.
 
 Screenshot
 ==========
-![image](C:///Users/LK/Desktop/Figure1.jpg)
+![image](C://Users/LK/Desktop/Figure1.jpg)
