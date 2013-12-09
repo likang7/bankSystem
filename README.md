@@ -18,3 +18,6 @@ Start the tomcat server at localhost and visit it through: <http://localhost:808
 Screenshot
 ==========
 ![image](./screenshot/Figure1.jpg)
+![image](./screenshot/Figure2.jpg)
+![image](./screenshot/Figure3.jpg)
+![image](./screenshot/Figure4.jpg)
