@@ -57,7 +57,10 @@
             <input type="number"
             <% if(usertype.equals("vip")){
             		out.print("min='1000000'");
+            } else{
+            	out.print("min='0'");
             }
+            
             %> step = "0.01" name = "money" size="40" required="required"/>
         </li>
         <li>

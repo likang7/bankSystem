@@ -21,7 +21,7 @@ public class SequenceDaoImpl extends basicPersistence implements SequenceDao {
 		}
 		
 		if(seqs.isEmpty()){
-			seqs.add(new Sequence(1000000, "all"));
+			seqs.add(new Sequence(1000, "all"));
 		}
 	}
 	

@@ -6,6 +6,7 @@ import bankSystem.entity.Account;
 import bankSystem.entity.AccountType;
 import bankSystem.entity.Card;
 import bankSystem.entity.Log;
+import bankSystem.entity.User;
 import bankSystem.persistence.dao.DaoFactory;
 import bankSystem.persistence.dao.iface.*;
 
@@ -103,16 +104,20 @@ public abstract class BusinessService {
 	
 	protected boolean isUserIdUsernameAgreed(String userId, String username){
 		try{
-			if(((IndividualUserDao)DaoFactory.getInstance().getDao("IndividualUserDao")).
-					getIndividualUser(userId).getName().equals(username)){
+			User user = null;
+			user = ((IndividualUserDao)DaoFactory.getInstance().getDao("IndividualUserDao")).
+			getIndividualUser(userId);
+			if(user != null && user.getName().equals(username)){
 				return true;
 			}
 			else if(((VIPUserDao)DaoFactory.getInstance().getDao("VIPUserDao")).
-					getVIPUser(userId).getName().equals(username)){
+					getVIPUser(userId)!= null && ((VIPUserDao)DaoFactory.getInstance().getDao("VIPUserDao")).
+							getVIPUser(userId).getName().equals(username)){
 				return true;
 			}
 			else if(((EnterpriseUserDao)DaoFactory.getInstance().getDao("EnterpriseUserDao")).
-					getEnterpriseUser(userId).getName().equals(username)){
+					getEnterpriseUser(userId) != null && ((EnterpriseUserDao)DaoFactory.getInstance().getDao("EnterpriseUserDao")).
+							getEnterpriseUser(userId).getName().equals(username)){
 				return true;
 			}
 		}catch (Exception e){

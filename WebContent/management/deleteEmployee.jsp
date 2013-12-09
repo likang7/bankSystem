@@ -11,7 +11,7 @@
 <body>
 <%session.setAttribute("businesstype", "deleteemployee");%>
 <h2>后台管理：删除雇员</h2>
-<form method="post" action="<%=request.getContextPath()%>/departmentservice">
+<form method="post" action="<%=request.getContextPath()%>/departmentservice.action">
 	<ul>
 		<li>
 			<label for="username">雇员用户名：</label>

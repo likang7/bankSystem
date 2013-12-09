@@ -246,7 +246,6 @@ public class VIPBusinessService extends BusinessService {
 		//update data
 		outAccount.setBalance(outBalance - money);
 		inAccount.setBalance(inAccount.getBalance() + money);
-		accountDao.updateAccount(outAccount);
 		try{
 			if(inAccount.getClass().equals(Account.class)){
 				((AccountDao)DaoFactory.getInstance().getDao("AccountDao")).updateAccount(inAccount);
@@ -255,13 +254,16 @@ public class VIPBusinessService extends BusinessService {
 				accountDao.updateAccount((VIPAccount)inAccount);
 			}
 			else if(inAccount.getClass().equals(EnterpriseAccount.class)){
-				((EnterpriseAccountDao)DaoFactory.getInstance().getDao("EnterpriseAccountDao"))
-					.updateAccount((EnterpriseAccount)inAccount);
+				returnMsg.setStatus(Status.ERROR);
+				returnMsg.setMsg("individual cannot transfer to enterprise user.");
+				return returnMsg;
+				/*((EnterpriseAccountDao)DaoFactory.getInstance().getDao("EnterpriseAccountDao"))
+					.updateAccount((EnterpriseAccount)inAccount);*/
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		
+		accountDao.updateAccount(outAccount);
 		//record the log
 		Log log = new Log(new Date(), "transferOut", operator, cardId, outAccountId, 
 				accountType, 0,	money, outAccount.getBalance());

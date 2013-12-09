@@ -198,7 +198,7 @@ public class IndividualBusinessService extends BusinessService {
 		accountDao.updateAccount(outAccount);
 		try{
 			if(inAccount.getClass().equals(VIPAccount.class)){
-				((AccountDao)DaoFactory.getInstance().getDao("VIPAccountDao"))
+				((VIPAccountDao)DaoFactory.getInstance().getDao("VIPAccountDao"))
 					.updateAccount((VIPAccount)inAccount);
 			}
 			else if(inAccount.getClass().equals(Account.class)){

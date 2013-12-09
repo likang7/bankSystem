@@ -19,19 +19,19 @@ create table if not exists Account (
 	`type` VARCHAR(20) NOT NULL,
 	balance DECIMAL NOT NULL,
 	openDate TIMESTAMP
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists Card (
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
 	password VARCHAR(50) NOT NULL,
 	accountId VARCHAR(20),
 	userId VARCHAR(50)
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists Department (
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
 	name VARCHAR(20) default ''
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists Employee (
 	username VARCHAR(50) NOT NULL PRIMARY KEY,
@@ -39,13 +39,13 @@ create table if not exists Employee (
 	position VARCHAR(20),
 	departmentId VARCHAR(20) DEFAULT NULL,
 	superiorId VARCHAR(50) DEFAULT NULL
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists Enterprise (
 	id VARCHAR(50) NOT NULL PRIMARY KEY,
 	enterpriseName VARCHAR(30) DEFAULT NULL,
 	balanceLimit DECIMAL DEFAULT 10000.0
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists EnterpriseAccount (
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
@@ -53,19 +53,19 @@ create table if not exists EnterpriseAccount (
 	balance DECIMAL NOT NULL,
 	openDate TIMESTAMP,
 	enterpriseId VARCHAR(20) DEFAULT NULL
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists EnterpriseUser (
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
 	name VARCHAR(20) DEFAULT NULL,
 	enterpriseId VARCHAR(20) DEFAULT NULL,
 	isSuper BOOLEAN DEFAULT FALSE
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists IndividualUser (
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
 	name VARCHAR(20) DEFAULT NULL
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists `Log` (
 	`time` TIMESTAMP NOT NULL,
@@ -77,12 +77,12 @@ create table if not exists `Log` (
 	income DECIMAL DEFAULT 0,
 	expenditure DECIMAL DEFAULT 0,
 	balance DECIMAL DEFAULT 0
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists `Sequence` (
 	nextid int NOT NULL DEFAULT 1000000,
 	name VARCHAR(20) NOT NULL PRIMARY KEY
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists VIPACCount(
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
@@ -93,9 +93,9 @@ create table if not exists VIPACCount(
 	isFrozen BOOLEAN DEFAULT FALSE,
 	accBalanceThisMonth DECIMAL DEFAULT 0,
 	accFailMonths SMALLINT DEFAULT 0
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;
 
 create table if not exists VIPUser(
 	id VARCHAR(20) NOT NULL PRIMARY KEY,
 	name VARCHAR(20) DEFAULT NULL	
-)DEFAULT CHARSET=latin1;
+)DEFAULT CHARSET=utf8;

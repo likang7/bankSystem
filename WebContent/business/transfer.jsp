@@ -6,7 +6,7 @@
 <body>
 <% session.setAttribute("businesstype", "transfer"); %>
 <h2>
-<%= (String)request.getAttribute("title")%>业务：取款
+<%= (String)request.getAttribute("title")%>
 业务：转账</h2>
 <form method="post" action="<%=request.getContextPath()%>/businessservice.action">
 	<ul>
@@ -36,7 +36,7 @@
         </li>       
         <li>
         	<label for="money">转出金额:</label>
-            <input type="number" step = "0.01" size="40" name = "money" required="required"/>
+            <input type="number"  min = "0" step = "0.01" size="40" name = "money" required="required"/>
         </li>  
 	</ul>
     <p>

@@ -5,12 +5,29 @@
 <link rel="stylesheet" href="css/style.css" />
 <link href='http://fonts.googleapis.com/css?family=Engagement' rel='stylesheet' type='text/css'>
 <title>bankSystem</title>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="http://s3.amazonaws.com/codecademy-content/courses/hour-of-code/js/alphabet.js"></script>
 </head>
 <body>
-	<div id="Content">
-	  <h1>Welcome to Bank System</h1>
+	<canvas id="myCanvas"></canvas>
+    <script type="text/javascript" src="http://s3.amazonaws.com/codecademy-content/courses/hour-of-code/js/bubbles.js"></script>
+    <script type="text/javascript">
+	     var red = [0, 100, 63];
+	     var orange = [40, 100, 60];
+	     var green = [75, 100, 40];
 	
-	  <p><a href="service/serviceHome.jsp">Enter the system</a></p>
+	     var myName = "Bank System";
+	
+	     var letterColors = [red, orange, green];
+	     var bubbleShape = "circle";
+	
+	     drawName(myName, letterColors);
+	
+	     bounceBubbles();
+      </script>
+	<div id="Content">
+	
+	  <h1><a href="service/serviceHome.jsp">Enter the system</a></h1>
 	
 	  <p><sub>email : likang7@mail2.sysu.edu.cn</sub></p>
 	

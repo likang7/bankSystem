@@ -12,15 +12,23 @@
 </head>
 <body>
 <h1>银行管理系统</h1>
+<%	String username = (String)session.getAttribute("sessionUsername"); %>
 <ul id = "menu">
+<%if(!username.equals("root")){
+	out.println("<li><a href='" + request.getContextPath() + "/service/individualBusinessService.jsp'>普通个人业务</a></li>");
+	out.println("<li><a href='" + request.getContextPath() + "/service/VIPBusinessService.jsp'>VIP个人业务</a></li>");
+	out.println("<li><a href='" + request.getContextPath() + "/service/enterpriseBusinessService.jsp'>企业用户业务</a></li>");
+}
+%>
+<!--  
 <li><a href="<%=request.getContextPath()%>/service/individualBusinessService.jsp">普通个人业务</a></li> 
 <li><a href="<%=request.getContextPath()%>/service/VIPBusinessService.jsp">VIP个人业务</a></li> 
 <li><a href="<%=request.getContextPath()%>/service/enterpriseBusinessService.jsp">企业用户业务</a></li>
+-->
 <li><a href="<%=request.getContextPath()%>/service/departmentService.jsp">后台管理</a></li>
 <li><a href="<%=request.getContextPath()%>/logoff.action">注销</a></li>
 </ul>
 <%
-	String username = (String)session.getAttribute("sessionUsername");
 	out.print("<br><br>当前操作员：" + username); 
 %>
 </body>

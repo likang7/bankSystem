@@ -13,7 +13,7 @@ public class EnterpriseUserDaoSqlImpl implements EnterpriseUserDao {
 	public EnterpriseUser getEnterpriseUser(String userid) {
 		// TODO Auto-generated method stub
 		try{
-			String sql = "select * from enterpriseuser where userid=?";
+			String sql = "select * from enterpriseuser where id=?";
 			Object[] args = new Object[]{userid};
 			EnterpriseUser eu = (EnterpriseUser)daoTemplate.find(sql, args, new EnterpriseUserRowMapper());
 			return eu;
@@ -42,7 +42,7 @@ public class EnterpriseUserDaoSqlImpl implements EnterpriseUserDao {
 	public void deleteUser(String userid) {
 		// TODO Auto-generated method stub
 		try{
-			String sql = "delete from enterpriseuser where userid=?";
+			String sql = "delete from enterpriseuser where id=?";
 			Object[] args = new Object[]{userid};
 			daoTemplate.update(sql, args, false);
 		}catch (Exception e){

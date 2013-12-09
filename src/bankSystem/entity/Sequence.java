@@ -1,6 +1,12 @@
 package bankSystem.entity;
 
-public class Sequence {
+import java.io.Serializable;
+
+public class Sequence implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1111312603056864595L;
 	private int nextid = 1000000;
 	private String name = "all";
 	

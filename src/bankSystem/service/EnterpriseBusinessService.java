@@ -267,23 +267,25 @@ public class EnterpriseBusinessService extends BusinessService {
 		//update data
 		outAccount.setBalance(outBalance - money);
 		inAccount.setBalance(inAccount.getBalance() + money);
-		accountDao.updateAccount(outAccount);
 		try{
-			if(inAccount.getClass().equals(Account.class)){
-				((AccountDao)DaoFactory.getInstance().getDao("AccountDao"))
-				.updateAccount(inAccount);
+			if(inAccount.getClass().equals(Account.class) || inAccount.getClass().equals(VIPAccount.class)){
+				//((AccountDao)DaoFactory.getInstance().getDao("AccountDao"))
+				//.updateAccount(inAccount);
+				returnMsg.setStatus(Status.ERROR);
+				returnMsg.setMsg("enterprise user cannot transfer to individual user.");
+				return returnMsg;
 			}
-			else if(inAccount.getClass().equals(VIPAccount.class)){
+			/*else if(inAccount.getClass().equals(VIPAccount.class)){
 				((AccountDao)DaoFactory.getInstance().getDao("VIPAccountDao"))
 				.updateAccount((VIPAccount)inAccount);
-			}
+			}*/
 			else if(inAccount.getClass().equals(EnterpriseAccount.class)){
 				accountDao.updateAccount((EnterpriseAccount)inAccount);
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		
+		accountDao.updateAccount(outAccount);
 		//record the log
 		Log log = new Log(new Date(), "transferOut", operator, cardId, outAccountId, 
 				accountType, 0,	money, outAccount.getBalance());

@@ -20,7 +20,7 @@
         </li>
         <li>
         	<label for="money">取款金额:</label>
-            <input type="number" step = "0.01" size="40" name = "money" required="required"/>
+            <input type="number"  min = "0" step = "0.01" size="40" name = "money" required="required"/>
         </li>       
 	</ul>
     <p>
