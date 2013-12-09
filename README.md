@@ -17,4 +17,4 @@ Start the tomcat server at localhost and visit it through: <http://localhost:808
 
 Screenshot
 ==========
-![image](C://Users/LK/Desktop/Figure1.jpg)
+![image](C:\\Users\\LK\Desktop\\Figure1.jpg)
