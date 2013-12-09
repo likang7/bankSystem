@@ -1,8 +1,10 @@
 bankSystem
 ==========
 
-A java/jsp/servlet version simplified bank managent system. Just a toy for practicing.
-
+A java/jsp/servlet version simplified bank managent system. Just a toy for practicing.  
+This is a good project to get start with jsp/servlet coding with 3-tile architecture.  
+Moreover, you can apply OOP and design patterns you learned as well.  
+At last, you can learn how to use DAO(Data Access Objects) pattern to access MySQL.
 
 Dependency Information
 ======================
