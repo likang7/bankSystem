@@ -1,1 +1,10 @@
+<<<<<<< HEAD
 /build
+=======
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+>>>>>>> c9eddde181b6bdce7c53eef95a93461180df88c5
